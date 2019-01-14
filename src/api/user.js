@@ -3,14 +3,14 @@ import request from "../config/request";
 
 export function GetUserIndex() {
   return request({
-    url: '/User/GetUserIndex',
+    url: '/user/1',
     method: 'get',
   })
 }
 
 export function GetFavorite(data){
   return request({
-    url: '/User/GetFavorite',
+    url: '/user/1/favorites',
     method: 'post',
     params: { data }
   })
@@ -26,16 +26,15 @@ export function DelFavorite(id){
 
 export function GetAddressList(){
   return request({
-    url: '/User/GetAddressList',
+    url: '/address/findAll',
     method: 'get',
   })
 }
 
 export function GetAddressById(id){
   return request({
-    url: '/User/GetAddressById',
-    method: 'get',
-    params: { id }
+    url: '/user/' + id + '/addresses',
+    method: 'get'
   })
 }
 
@@ -57,7 +56,7 @@ export function DelAddress(data){
 
 export function GetCoupon(data){
   return request({
-    url: '/User/GetCoupon',
+    url: '/user/coupon',
     method: 'Post',
     params: { data }
   })

@@ -6,9 +6,9 @@
  * dataSources：数据源
  */
 
-let baseUrl = ''; 
+let baseUrl = 'localhost:8080'; 
 let routerMode = 'hash';
-let dataSources='local';//local=本地，其他值代表非本地
+let dataSources='service';//local=本地，其他值代表非本地
 
 
 if (process.env.NODE_ENV == 'development') {
