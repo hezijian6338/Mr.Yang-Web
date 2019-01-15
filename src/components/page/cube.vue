@@ -16,12 +16,15 @@ export default {
     data: Object
   },
   created: function() {
+    console.log("cube -- data.type: " + this.data.type)
     var gap = this.data.imagegap;
     var margin = gap / 2;
     var width = 375;
     var max = 0;
-    switch (this.data.type) {
+    var type = this.data.type + ""
+    switch (type) {
       case "1":
+        console.log("Cube -- case: " + type)
         max = 2;
         width = (width - margin * 2) / 2;
         break;
@@ -49,16 +52,19 @@ export default {
         max = 4;
         width = (width - margin * 2) / 2;
         break;
+      default :
+        max = 4;
+        width = (width - margin * 2) / 2;
     }
     margin = margin / 50;
     width = width / 50;
     var imagelist = [];
-
+    console.log("Cube -- max: " + max)
     for (var i = 0; i < max; i++) {
       var imgwidth = width;
       var item = this.data.imagelist[i];
       var style = "";
-      switch (this.data.type) {
+      switch (type) {
         case "1":
           {
             if (i == 0) {
@@ -173,9 +179,11 @@ export default {
       }
       item.style = style;
       item.imgwidth = imgwidth;
+      console.log("Cube -- item.style: " + item.style)
       imagelist.push(item);
     }
     this.data.images = imagelist;
+    console.log("Cube -- End --- Cube")
   },
   computed: {}
 };

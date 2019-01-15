@@ -1,26 +1,26 @@
 <template>
-<div :style="'background-color:'+((page.BackgroundColor==undefined||page.BackgroundColor=='')?'#fff':page.BackgroundColor)">
+<div :style="'background-color:'+((page.backgroundColor==undefined||page.backgroundColor=='')?'#fff':page.backgroundColor)">
     <div :style="'height:'+topheight+'px'" ></div>
-    <div v-for="(item,index) in page.Sections" :key="index">
-        <imageAd v-if="item.Code=='ImageAd'" :data="item.ParameterDictionary"></imageAd>
+    <div v-for="(item,index) in page.sections" :key="index">
+        <imageAd v-if="item.code=='ImageAd'" :data="item.parameterDictionary"></imageAd>
         
-        <imageText v-if="item.Code=='ImageText'" :data="item.ParameterDictionary"></imageText>
+        <imageText v-if="item.code=='ImageText'" :data="item.parameterDictionary"></imageText>
 
-        <pageLine v-if="item.Code=='Line'"  :data="item.ParameterDictionary" ></pageLine>
+        <pageLine v-if="item.code=='Line'"  :data="item.parameterDictionary" ></pageLine>
 
-        <whitespace v-if="item.Code=='Line'" :data="item.ParameterDictionary"  />
+        <whitespace v-if="item.code=='Line'" :data="item.parameterDictionary"  />
 
-        <pageText v-if="item.Code=='Text'" :data="item.ParameterDictionary" ></pageText>
+        <pageText v-if="item.code=='Text'" :data="item.parameterDictionary" ></pageText>
 
-        <notice v-if="item.Code=='Notice'" :data="item.ParameterDictionary" ></notice>
+        <notice v-if="item.code=='Notice'" :data="item.parameterDictionary" ></notice>
 
-        <search v-if="item.Code=='Search'" :data="item.ParameterDictionary" v-on:settopheight="settopheight($event)" ></search>
+        <search v-if="item.code=='Search'" :data="item.parameterDictionary" v-on:settopheight="settopheight($event)" ></search>
 
-        <pageTitle v-if="item.Code=='Title'" :data="item.ParameterDictionary" ></pageTitle>
+        <pageTitle v-if="item.code=='Title'" :data="item.parameterDictionary" ></pageTitle>
 
-        <cube v-if="item.Code=='Cube'" :data="item.ParameterDictionary" ></cube>
+        <cube v-if="item.code=='Cube'" :data="item.parameterDictionary" ></cube>
 
-        <product v-if="item.Code=='Product'" :data="item" ></product>
+        <product v-if="item.code=='Product'" :data="item" ></product>
     </div>
 
 </div>
@@ -61,7 +61,7 @@ export default {
     },
     created:function(){
         GetPage().then(response=>{
-            this.page=response;
+            this.page=response.data;
         });
     },
     methods:{

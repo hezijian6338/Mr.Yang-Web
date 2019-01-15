@@ -6,7 +6,7 @@ import datas from '../data/data';
 
 const service =axios.create({
   baseURL: baseUrl, // api 的 base_url
-  timeout: 5000, // request timeout
+  timeout: 50000, // request timeout
 });
 
 
@@ -53,8 +53,8 @@ service.interceptors.response.use(
      * 以下代码均为样例，请结合自生需求加以修改，若不需要，则可删除
      */
     response => {
-      const res = response.data;
-      if (res.ResultCode !== 200) {
+      const res = response;
+      if (res.status !== 200) {
         // Message({
         //   message: res.message,
         //   type: 'error',
@@ -74,13 +74,14 @@ service.interceptors.response.use(
         //     })
         //   })
         // }
-        console.log(1);
+        console.log(res.status);
         return Promise.reject('error')
       } else {
-        if(typeof response.data.Tag=='string'){
-          return JSON.parse(response.data.Tag);
+        console.log(res);
+        if(typeof response.data.data=='string'){
+          return JSON.parse(response.data);
         }else{
-          return response.data.Tag;
+          return response.data;
         }
       }
     },

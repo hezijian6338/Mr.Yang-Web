@@ -8,9 +8,9 @@ export function GetPage() {
     })
   }
 
-export function getProduct(id) {
+export function getProduct() {
     return request({
-      url: '/product/' + id,
+      url: '/product/findAll',
       method: 'get'
     })
   }

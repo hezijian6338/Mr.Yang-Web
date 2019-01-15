@@ -3,12 +3,12 @@
     <div class="user-profile">
       <div class="user-profile-avatar">
         <a href="/#/user/info">
-          <img :src="data.Avatar" alt="用户头像">
+          <img :src="data.avatar" alt="用户头像">
         </a>
       </div>
       <div class="user-profile-username">
         <a href="/#/user/info">
-          <span class="m-nick">{{data.UserName}}</span>
+          <span class="m-nick">{{data.userName}}</span>
         </a>  
       </div>
     </div>
@@ -19,7 +19,7 @@
         <router-link  to="/user/order/1">
           <van-col span="6">
             <van-icon name="pending-payment">
-              <van-info :info="data.UnPayTotal"  />
+              <van-info :info="data.unPayTotal"  />
             </van-icon>
             <div>待付款</div>
           </van-col>
@@ -27,7 +27,7 @@
         <router-link  to="/user/order/2">
           <van-col span="6">
             <van-icon name="logistics">
-              <van-info :info="data.UnRecieveTotal"   />
+              <van-info :info="data.unRecieveTotal"   />
             </van-icon>
             <div>待发货</div>
           </van-col>
@@ -42,7 +42,7 @@
         <router-link  to="/user/aftersale">
           <van-col span="6">
             <van-icon name="after-sale" >
-              <van-info :info="data.AfterSaleTotal"   />
+              <van-info :info="data.afterSaleTotal"   />
             </van-icon>
             <div>售后</div>
           </van-col>
@@ -94,7 +94,8 @@ export default {
   },
   created:function(){
       GetUserIndex().then(response=>{
-          this.data=response;
+          this.data=response.data;
+          // console.log(this.data)
       });
   },
 };
