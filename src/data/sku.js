@@ -25,7 +25,8 @@ export default {
         v: [
           {
             id: '1193',
-            name: '1'
+            name: '1',
+            imgUrl: ""
           },
           {
             id: '1194',
@@ -39,7 +40,7 @@ export default {
     list: [
       {
         id: 2259,
-        price: 100,
+        price: 1000,
         discount: 100,
         code: '',
         s1: '1215',
@@ -77,7 +78,7 @@ export default {
       },
       {
         id: 2257,
-        price: 100,
+        price: 1030,
         discount: 100,
         code: '',
         s1: '30349',
@@ -96,7 +97,7 @@ export default {
       },
       {
         id: 2258,
-        price: 100,
+        price: 1030,
         discount: 100,
         code: '',
         s1: '30349',
@@ -114,8 +115,8 @@ export default {
         goods_id: 946755
       }
     ],
-    price: '1.00',
-    market_price:'10.00',
+    price: '10.00',
+    market_price:'15.00',
     stock_num: 227,
     collection_id: 2261,
     collection_price: 0,

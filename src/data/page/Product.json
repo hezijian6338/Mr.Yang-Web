@@ -58,5 +58,11 @@
 		"title": "ÍpsΛ 茵芙莎 流金岁月美肤水 200毫升",
 		"price": "328.00",
 		"imageURL": "https://haitao.nosdn2.127.net/0938e26c883f451b9387b9daf6b5ed9d1537025125829jm3l2par10687.jpg"
+	},
+	{
+		"id": 11,
+		"title": "抹茶雪花酥",
+		"price": "99.00",
+		"imageURL": "http://localhost:8081/mongodb/img/fileName=test1.jpg"
 	}
 ]
