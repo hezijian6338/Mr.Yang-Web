@@ -15,9 +15,10 @@
         <div class="goods-subtit">{{goods.subtitle}}</div>
       </van-cell>
       
-      <van-cell   @click="onClickShowTag" class="goods-tag" >
-        <template slot="title" style="font-size:10px;">
-            <img src="https://haitao.nos.netease.com/ba8a4c2fdaa54f82a45261293c116af61419663676663i46n3jlh10028.png"/>
+      <van-cell @click="onClickShowTag" class="goods-tag" >
+        <template>
+          <div v-for="(item, index) in goodsPromises" :key="index" slot="title" style="font-size:10px;float:left;">
+            <!-- <img src="https://haitao.nos.netease.com/ba8a4c2fdaa54f82a45261293c116af61419663676663i46n3jlh10028.png"/>
             <span >挪威品牌</span>
             <img src="https://haitao.nosdn2.127.net/13bd59e6e29a4f06b278c586629e690d.png" />
             <span >跨境商品</span>
@@ -30,7 +31,10 @@
             <van-icon name="passed" color="red" />
             <span >前海保税仓</span>
             <van-icon name="passed" color="red" />
-            <span >七天无理由退货（拆封后不支持）</span>
+            <span >七天无理由退货（拆封后不支持）</span> -->
+            <van-icon :name="item.icon" :color="item.color" />
+            <span>{{ item.name }}</span>
+            </div>
         </template>
       </van-cell>   
     </van-cell-group>
@@ -107,7 +111,14 @@
     
     <van-actionsheet v-model="showTag" title="服务说明" style="font-size:14px;">
         
-            <van-cell>
+            <van-cell v-for="(item, index) in goodsPromises" :key="index">
+                <template slot="title">
+                  <van-icon :name="item.icon" :color="item.color" style="margin-right: 10px;" />
+                  <span >{{ item.name }}</span>
+                  <div style="margin-left: 24px;font-size:10px;color:#7d7d7d;">{{ item.info }}</div>
+                </template>
+            </van-cell>
+            <!-- <van-cell>
                 <template slot="title">
                     <van-icon name="passed" color="red" style="margin-right: 10px;" />
                     <span >次日达</span>
@@ -141,16 +152,16 @@
                     <span >前海保税仓</span>
                     <div style="margin-left: 24px;font-size:10px;color:#7d7d7d;">本商品由前海保税仓发货</div>
                 </template>
-            </van-cell>
+            </van-cell> -->
     </van-actionsheet>
     <van-sku
           v-model="showBase"
-          :sku="skuData.sku"
+          :sku="sku"
           :goods="skuData.goods_info"
           :goods-id="skuData.goods_id"
-          :hide-stock="skuData.sku.hide_stock"
-          :quota="skuData.quota"
-          :quota-used="skuData.quota_used"
+          :hide-stock="sku.hide_stock"
+          :quota="sku.quota"
+          :quota-used="sku.quota_used"
           reset-stepper-on-hide
           reset-selected-sku-on-hide
           disable-stepper-input
@@ -165,15 +176,21 @@
 
 <script>
 import skuData from '../../data/sku';
+import Goods from '../../data/goods';
+import { GetGoods } from "../../api/product.js";
 
 export default {
   components: {
   },
   data() {
-    this.skuData = skuData;
+    this.skuData = skuData
+    // this.goods = Goods.goods
     return {
+      // skuData: {},
       show:false,
       showTag:false,
+      goodsPromises: [{}],
+      sku: {},
       goods: {
         title: '【每日一粒益智又长高】 Lifeline Care 儿童果冻鱼油DHA维生素D3聪明长高 软糖 30粒 2件装',
         subtitle:'【品牌直采】Q弹美味，无腥味果冻鱼油，每粒含足量鱼油DHA，帮助视网膜和大脑健康发育，让你的宝宝明眼又聪明，同时补充400国际单位维生素D3，强壮骨骼和牙齿。特含DPA，让宝宝免疫力更强，没病来扰。',
@@ -223,6 +240,18 @@ export default {
         uploadMaxSize: 3
       }
     };
+  },
+  created:function(){
+    console.log(Goods)
+    this.goods = Goods.goods
+    this.goodsPromises = Goods.goodsPromises
+    this.sku = Goods.sku
+      // GetGoods().then(response=>{
+      //     // this.data=response.data;
+      //     this.skuData = response.data.sku
+      //     this.goods = response.data
+      //     // console.log(this.data)
+      // });
   },
   methods: {
     formatPrice(data) {
