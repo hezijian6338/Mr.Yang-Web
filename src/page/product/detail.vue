@@ -157,8 +157,8 @@
     <van-sku
           v-model="showBase"
           :sku="sku"
-          :goods="skuData.goods_info"
-          :goods-id="skuData.goods_id"
+          :goods="goodsInfo"
+          :goods-id="goodsInfo.id"
           :hide-stock="sku.hide_stock"
           :quota="sku.quota"
           :quota-used="sku.quota_used"
@@ -175,22 +175,21 @@
 </template>
 
 <script>
-import skuData from '../../data/sku';
-import Goods from '../../data/goods';
+// import skuData from '../../data/sku';
+// import Goods from '../../data/goods';
 import { GetGoods } from "../../api/product.js";
 
 export default {
   components: {
   },
   data() {
-    this.skuData = skuData
-    // this.goods = Goods.goods
+    // this.skuData = skuData
     return {
-      // skuData: {},
       show:false,
       showTag:false,
       goodsPromises: [{}],
       sku: {},
+      goodsInfo: {},
       goods: {
         title: '【每日一粒益智又长高】 Lifeline Care 儿童果冻鱼油DHA维生素D3聪明长高 软糖 30粒 2件装',
         subtitle:'【品牌直采】Q弹美味，无腥味果冻鱼油，每粒含足量鱼油DHA，帮助视网膜和大脑健康发育，让你的宝宝明眼又聪明，同时补充400国际单位维生素D3，强壮骨骼和牙齿。特含DPA，让宝宝免疫力更强，没病来扰。',
@@ -242,16 +241,18 @@ export default {
     };
   },
   created:function(){
-    console.log(Goods)
-    this.goods = Goods.goods
-    this.goodsPromises = Goods.goodsPromises
-    this.sku = Goods.sku
-      // GetGoods().then(response=>{
-      //     // this.data=response.data;
-      //     this.skuData = response.data.sku
-      //     this.goods = response.data
-      //     // console.log(this.data)
-      // });
+    // console.log(Goods)
+    // this.goods = Goods.goods
+    // this.goodsPromises = Goods.goodsPromises
+    // this.sku = Goods.sku
+      GetGoods().then(response=>{
+          // this.data=response.data;
+          this.sku = response.data.sku
+          this.goods = response.data.goods
+          this.goodsPromises = response.data.goodsPromises
+          this.goodsInfo = response.data.goodsInfo
+          console.log(response.data)
+      });
   },
   methods: {
     formatPrice(data) {
