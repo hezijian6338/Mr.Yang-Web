@@ -5,7 +5,7 @@
             <div style="width:100%;height:150px;"></div>
         </li>
         <li v-for="(item,index) in productlist" :key="index" :class="'cap-goods-list__wrapper  '+(data.parameterDictionary.type=='3'?(index%3==0?'cap-goods-list__wrapper--hybrid-big ':'cap-goods-list__wrapper--hybrid-small '):'')">
-            <router-link :class="'cap-goods-list__item cap-goods-list__item--'+data.classname+' '+data.parameterDictionary.showtype+' '+data.aclass" :to="'/product/'+item.id">
+            <router-link :class="'cap-goods-list__item cap-goods-list__item--'+data.classname+' '+data.parameterDictionary.showtype+' '+data.aclass" :to="'/product/'+item.goods_id">
                 <div class="cap-goods-list__photo">
                     <img class="cap-goods-list__img lazy lazyload" v-lazy="item.imageURL+'?w='+((data.parameterDictionary.type=='1'||data.parameterDictionary.type=='3')?'750':'375')" />
                 </div>

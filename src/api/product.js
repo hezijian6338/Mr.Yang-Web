@@ -1,8 +1,8 @@
 import request from "../config/request"
 
-export function GetGoods() {
+export function GetGoods(goods_id) {
   return request({
-    url: '/goods/1',
+    url: '/goods/' + goods_id,
     method: 'get'
   })
 }

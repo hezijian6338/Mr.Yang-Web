@@ -12,7 +12,7 @@
             </template>
             <template slot="tags">
                 <p class="price" v-if="product.price!=null&&product.price!=''" >
-                    ￥<span>{{product.price}}</span>
+                    <span>{{ formatPrice(product.price) }}</span>
                     <van-tag v-if="product.tags!=null" v-for="tag in product.tags" :key="tag" plain type="danger">{{tag}}</van-tag>
                 </p>
                 <van-stepper v-if="iscard" v-model="product.quantity" :max="product.max"  :min="product.min" />
@@ -20,7 +20,7 @@
         </van-card>
         <van-cell  v-for="(gift,j) in product.gift" :key="j"  :value="'x'+gift.quantity" >
             <template slot="title">
-                <van-tag type="danger" v-if="j==0" >赠品</van-tag>
+                <van-tag type="danger" v-if="j==0" >赠哝</van-tag>
                 <span class="van-cell-text" :style="(j>0?'margin-left: 35px;':'')" >{{gift.title}}</span>
             </template>
         </van-cell>
@@ -37,6 +37,11 @@ export default {
             type: Boolean,
             default: false
         },
+    },
+    methods: {
+        formatPrice(data) {
+            return '¥' + (data / 100).toFixed(2);
+        }
     }
 }
 </script>

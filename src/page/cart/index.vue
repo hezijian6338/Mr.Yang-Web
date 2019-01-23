@@ -27,7 +27,7 @@
         </div>
         </div>
     
-      <div class="promotion-group">
+      <!-- <div class="promotion-group">
         
        <van-cell  is-link class="head">
         <template slot="title">
@@ -71,7 +71,7 @@
           </template>
         </product-card>
       </div>
-        </div>
+        </div> -->
     </van-checkbox-group>
     
     <div style="height:50px;"></div>
@@ -126,7 +126,7 @@ export default {
         id: '3',
         title: '美国伽力果',
         desc: '约680g/3个',
-        price: '2680.00',
+        price: '3680.00',
         quantity: 1,
         imageURL: 'https://img.yzcdn.cn/public_files/2017/10/24/320454216bbe9e25c7651e1fa51b31fd.jpeg'
       }]
@@ -143,7 +143,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      
       this.$router.push('/order')
     }
   }

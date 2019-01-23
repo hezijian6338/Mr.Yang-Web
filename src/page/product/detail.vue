@@ -245,13 +245,14 @@ export default {
     // this.goods = Goods.goods
     // this.goodsPromises = Goods.goodsPromises
     // this.sku = Goods.sku
-      GetGoods().then(response=>{
+      GetGoods(this.$route.params.id).then(response=>{
           // this.data=response.data;
           this.sku = response.data.sku
           this.goods = response.data.goods
           this.goodsPromises = response.data.goodsPromises
           this.goodsInfo = response.data.goodsInfo
           console.log(response.data)
+          console.log("商品id: " + this.$route.params.id )
       });
   },
   methods: {
