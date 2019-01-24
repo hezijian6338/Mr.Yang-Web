@@ -12,7 +12,7 @@
                 <div :class="'cap-goods-list__info has-title has-price '+(data.parameterDictionary.showtype == 'card'?'has-btn':'')">
                     <h3 class="title">{{item.title}}</h3>
                     <p class="sale-info">
-                        <span class="sale-price">¥ {{item.price}}</span>
+                        <span class="sale-price">{{formatPrice(item.price)}}</span>
                     </p>
                 </div>
                 <div v-if="data.parameterDictionary.showtype == 'card'" class="cap-goods-list__buy-btn-wrapper cap-goods-list__buy-btn-wrapper--4">
@@ -76,6 +76,11 @@ export default {
             this.productlist=response.data.list;
         })
         console.log("Product -- End --- Product")
+    },
+    methods: {
+        formatPrice(data) {
+            return '¥' + (data / 100).toFixed(2);
+        }
     }
 }
 </script>
