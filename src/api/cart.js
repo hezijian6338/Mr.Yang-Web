@@ -6,3 +6,18 @@ export function GetCarts(user_id) {
     method: 'get'
   })
 }
+
+export function GetCart(id) {
+  return request({
+    url: '/cart/' + id,
+    method: 'get'
+  })
+}
+
+export function UpdateCart(id, skuList_id, updateMap) {
+  return request({
+    url: '/cart/' + id + '/skuList/' + skuList_id,
+    method: 'patch',
+    data: updateMap
+  })
+}

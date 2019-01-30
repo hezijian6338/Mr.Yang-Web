@@ -10,15 +10,20 @@
     <van-checkbox-group class="card-goods" v-model="checkedGoods">
       <div class="promotion-group">
         <div v-for="(item,index) in goods" :key="index" class="card-goods__item">
-          <van-checkbox :name="item.id" ></van-checkbox>
+          <van-checkbox :name="item.id" v-model="checkedAll"></van-checkbox>
 
           <product-card :product="item" :iscard="true">
             <template slot>
-              <van-cell value="修改">
-                <template slot="title">
+              <van-cell
+                clickable
+                title="数量"
+                value="修改"
+                @click="changeGoodsQuantity(item.id, index, item.skuList_id)"
+              >
+                <!-- <template slot="title">
                   <van-tag type="danger">促销</van-tag>
                   <span class="van-cell-text">满60元减5元</span>
-                </template>
+                </template>-->
               </van-cell>
             </template>
           </product-card>
@@ -87,7 +92,8 @@
 </template>
 
 <script>
-import { GetCarts } from "../../api/cart.js";
+import { GetCarts, GetCart, UpdateCart } from "../../api/cart.js";
+import Vue from 'vue';
 
 export default {
   components: {},
@@ -165,7 +171,7 @@ export default {
       // this.goods.desc = response.data.desc;
       // this.goods.price = response.data.price;
       // this.goods.desc = response.data.desc;
-      console.log(response.data);
+      // console.log(response.data);
       // console.log("商品id: " + this.$route.params.id);
       this.checked();
     });
@@ -175,15 +181,30 @@ export default {
       this.$router.push("/order");
     },
     checked() {
+      console.log(this.checkedAll);
       if (this.checkedAll) {
         for (var i = 0; i < this.goods.length; i++) {
-          this.checkedGoods[i] = this.goods[i].id;
+          // this.checkedGoods[i] = this.goods[i].id;
+          Vue.set(this.checkedGoods, i, this.goods[i].id)
         }
       } else {
         this.checkedGoods = [];
       }
-
       console.log(this.checkedGoods);
+    },
+    changeGoodsQuantity(id, index, skuList_id) {
+      var updateMap = {
+        quantity: this.goods[index].quantity
+      };
+      UpdateCart(id, skuList_id, updateMap).then(response => {
+        // this.$toast(response.resultCode);
+        GetCart(id).then(response => {
+          // this.goods[index] = response.data;
+          Vue.set(this.goods,index,response.data)
+        });
+      });
+      // console.log(updateMap + "" + id);
+      // console.log(updateMap);
     }
   }
 };
