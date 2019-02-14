@@ -289,11 +289,11 @@ export default {
       this.cart[0].product_id = data.goodsId;
       this.cart[0].skuList_id = data.selectedSkuComb.id;
       this.cart[0].quantity = data.selectedNum;
-      this.cart[0].user_id = this.$route.params.id;
+      this.cart[0].user_id = "1";
       this.cart[0].desc = this.goods.subtitle;
       console.log(JSON.stringify(this.cart[0]));
       // this.$toast(JSON.stringify(data));
-      AddCart(this.$route.params.id, this.cart).then(response => {
+      AddCart("1", this.cart).then(response => {
         this.$toast(JSON.stringify(response.data));
       });
     }
