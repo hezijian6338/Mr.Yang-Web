@@ -16,6 +16,13 @@ const routes = [
     }
   },
   {
+    path: '/admin',
+    component: () => import('../page/admin/index'),
+    meta: {
+      title: '管理员'
+    }
+  },
+  {
 		path: '/login',
     component: () => import('../page/account/login'),
     meta: {
