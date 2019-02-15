@@ -37,10 +37,10 @@ const components=[
     Card,
     Button,
     SwipeCell ,
-    Dialog ,
+    Dialog,
     headerNav, 
     Tab, Tabs,Toast,Row,Checkbox, CheckboxGroup, SubmitBar,NavBar ,Tabbar, TabbarItem,navigate,Panel,List ,Step, Steps,Field ,
-    Badge, BadgeGroup,Popup,productcard,Stepper,RadioGroup, Radio,Picker,Uploader,Info
+    Badge, BadgeGroup,Popup,productcard,Stepper,RadioGroup, Radio,Picker,Uploader,Info 
 ]
 
 

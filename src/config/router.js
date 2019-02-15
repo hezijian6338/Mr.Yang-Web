@@ -23,6 +23,20 @@ const routes = [
     }
   },
   {
+    path: '/admin/addProduct',
+    component: () => import('../page/admin/addProduct'),
+    meta: {
+      title: '增加商品'
+    }
+  },
+  {
+    path: '/admin/addTree',
+    component: () => import('../page/admin/addTree'),
+    meta: {
+      title: '添加商品规格'
+    }
+  },
+  {
 		path: '/login',
     component: () => import('../page/account/login'),
     meta: {
