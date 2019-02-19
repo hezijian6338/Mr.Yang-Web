@@ -6,17 +6,17 @@
  * dataSources：数据源
  */
 
-let baseUrl = ''; 
+let baseUrl = '';
 let photoUrl = '';
 let routerMode = 'hash';
-let dataSources='service';//local=本地，其他值代表非本地
+let dataSources = 'service'; //local=本地，其他值代表非本地
 
 
 if (process.env.NODE_ENV == 'development') {
-	baseUrl='http://localhost:8081';
+	baseUrl = 'http://localhost:8081';
 	photoUrl = 'http://hezijian6338.ddns.net:8833'
 	// photoUrl = 'http://localhost:8833'
-}else if(process.env.NODE_ENV == 'production'){
+} else if (process.env.NODE_ENV == 'production') {
 	baseUrl = '';
 }
 

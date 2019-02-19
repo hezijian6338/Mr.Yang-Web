@@ -33,7 +33,14 @@ const routes = [
     path: '/admin/addTree',
     component: () => import('../page/admin/addTree'),
     meta: {
-      title: '添加商品规格'
+      title: '添加商品规格Ⅰ'
+    }
+  },
+  {
+    path: '/admin/addTree1',
+    component: () => import('../page/admin/addTree1'),
+    meta: {
+      title: '添加商品规格StepⅡ'
     }
   },
   {
