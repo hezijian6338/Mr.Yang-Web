@@ -3,8 +3,7 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-const routes = [
-  {
+const routes = [{
     path: '*',
     redirect: '/home'
   },
@@ -33,46 +32,46 @@ const routes = [
     path: '/admin/addTree',
     component: () => import('../page/admin/addTree'),
     meta: {
-      title: '添加商品规格Ⅰ'
+      title: '添加商品规格StepⅠ'
     }
   },
   {
-    path: '/admin/addTree1',
-    component: () => import('../page/admin/addTree1'),
+    path: '/admin/addSkulist',
+    component: () => import('../page/admin/addSkulist'),
     meta: {
-      title: '添加商品规格StepⅡ'
+      title: '商品规格组合StepⅡ'
     }
   },
   {
-		path: '/login',
+    path: '/login',
     component: () => import('../page/account/login'),
     meta: {
       title: '登录'
     }
   },
   {
-		path: '/login/password',
+    path: '/login/password',
     component: () => import('../page/account/password'),
     meta: {
       title: '登录'
     }
   },
   {
-		path: '/login/phone',
+    path: '/login/phone',
     component: () => import('../page/account/phonelogin'),
     meta: {
       title: '手机号登录'
     }
   },
   {
-		path: '/login/register',
+    path: '/login/register',
     component: () => import('../page/account/register'),
     meta: {
       title: '注册'
     }
   },
   {
-		path: '/user/index',
+    path: '/user/index',
     component: () => import('../page/user/index'),
     name: 'user',
     meta: {
@@ -80,7 +79,7 @@ const routes = [
     }
   },
   {
-		path: '/user/info',
+    path: '/user/info',
     component: () => import('../page/user/info/detail'),
     name: 'user',
     meta: {
@@ -213,7 +212,9 @@ routes.forEach(route => {
   route.path = route.path || '/' + (route.name || '');
 });
 
-const router = new Router({ routes });
+const router = new Router({
+  routes
+});
 
 router.beforeEach((to, from, next) => {
   const title = to.meta && to.meta.title;
