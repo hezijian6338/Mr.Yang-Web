@@ -1,18 +1,62 @@
 <template>
   <div>
-    <van-checkbox-group>
-      <!-- <van-checkbox v-for="(item, index) in list"
-                    :key="index"
-                    :name="index">
+    <van-checkbox-group v-model="result">
+      <van-checkbox v-for="(item) in list"
+                    :key="item.id"
+                    :name="item">
         <p style="font-size:10px">{{item.s1}} -- {{item.s2}}</p>
-      </van-checkbox> -->
+      </van-checkbox>
     </van-checkbox-group>
+    <!-- {{result}} -->
+    <div v-for="(item,index) in result"
+         :key="item.id"
+         :name="item"
+         style="display: inline">
+      <van-button type="default"
+                  @click="selected(item,index)">{{item.id}}</van-button>
+    </div>
+    <van-number-keyboard :show="keyboardShow"
+                         close-button-text="完成"
+                         @blur="keyboardShow = false"
+                         @input="onInput"
+                         @delete="onDelete"
+                         :z-index="3000" />
+    <div>
+      <van-dialog v-model="show"
+                  show-cancel-button
+                  @confirm="onClose">
+        <van-field v-model="price"
+                   label="商品价格"
+                   @touchstart.native.stop="keyboardSelected('price')"
+                   placeholder="请输入规格的价格详情(千分位,例:5000 = ¥50)"
+                   required
+                   clearable />
+        <van-field v-model="stock_num"
+                   label="商品库存数量"
+                   @touchstart.native.stop="keyboardSelected('stock_num')"
+                   placeholder="请输入规格的存货数量(整数)"
+                   required
+                   clearable />
+      </van-dialog>
+      {{result}}
+    </div>
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
+      price: 0,
+      stock_num: 0,
+      show: false,
+      keyboardShow: false,
+      keyboardType: '',
+      selectedIndex: 0,
+      actions: [
+        {
+          name: '详细规格填写'
+        }
+      ],
       list: [],
       tree: {
         "price": 0,
@@ -21,7 +65,7 @@ export default {
         "s3": "",
         "stock_num": 0
       },
-      result: [{}],
+      result: [],
       treeV: {
         "id": "",
         "name": "",
@@ -66,19 +110,68 @@ export default {
   created: function () {
     for (var i = 0; i < this.tree_s1.v.length; i++) {
       this.tree.s1 = this.tree_s1.v[i].id
+      console.log(this.tree.s1)
       for (var j = 0; j < this.tree_s2.v.length; j++) {
         this.tree.s2 = this.tree_s2.v[j].id
-        this.list.push(this.tree)
+        console.log(this.tree.s2)
+        this.list.push({
+          "id": this.tree.s1 + this.tree.s2,
+          "s1": this.tree.s1,
+          "s2": this.tree.s2,
+          "price": 0,
+          "stock_num": 0
+        })
       }
     }
     console.log(this.list)
   },
   methods: {
-    selected (tree1, tree2) {
-      this.treeV.s1 = tree1
-      this.treeV.s2 = tree2
-      return true
+    keyboardSelected (field) {
+      this.keyboardShow = true
+      this.keyboardType = field
+    },
+    selected (item, index) {
+      this.show = this.show == true ? false : true
+      this.tree = item
+      this.selectedIndex = index
+    },
+    onSelect (item) {
+      // 点击选项时默认不会关闭菜单，可以手动关闭
+      this.show = false;
+      Toast(item.name);
+    },
+    onInput (value) {
+      if (this.keyboardType == 'price') {
+        this.price = parseInt(this.price + '' + value)
+      }
+      if (this.keyboardType == 'stock_num') {
+        this.stock_num = parseInt(this.stock_num + '' + value)
+      }
+    },
+    onDelete () {
+      if (this.keyboardType == 'price') {
+        this.price = this.price + ''
+        this.price = parseInt(this.price.substring(0, this.price.length - 1))
+      }
+      if (this.keyboardType == 'stock_num') {
+        this.stock_num = this.stock_num + ''
+        this.stock_num = parseInt(this.stock_num.substring(0, this.stock_num.length - 1))
+      }
+    },
+    onClose () {
+      this.result[this.selectedIndex].stock_num = this.stock_num
+      this.result[this.selectedIndex].price = this.price
+      this.stock_num = 0
+      this.price = 0
+      this.$toast(this.result[this.selectedIndex].s1)
     }
   }
 }
 </script>
+
+<style>
+.van-dialog {
+  z-index: 2000;
+}
+</style>
+
