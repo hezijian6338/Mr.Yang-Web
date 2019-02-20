@@ -1,10 +1,13 @@
 <template>
   <div>
+    <van-cell title="请选择你的规格组合:"
+              icon="goods-collect-o" />
     <van-checkbox-group v-model="result">
       <van-checkbox v-for="(item) in list"
                     :key="item.id"
                     :name="item">
-        <p style="font-size:10px">{{item.s1}} -- {{item.s2}}</p>
+        <!-- <p style="font-size:10px">{{item.s1}} -- {{item.s2}}</p> -->
+        <p style="font-size:10px">{{item.id}}</p>
       </van-checkbox>
     </van-checkbox-group>
     <!-- {{result}} -->
@@ -39,7 +42,10 @@
                    clearable />
       </van-dialog>
       {{result}}
+
     </div>
+    <van-button type="default"
+                @click="confirm">{{user}}</van-button>
   </div>
 </template>
 <script>
@@ -60,9 +66,11 @@ export default {
       list: [],
       tree: {
         "price": 0,
-        "s1": "",
+        "s1": '',
+        // "s1_name": '',
         "s2": "",
-        "s3": "",
+        // "s2_name": '',
+        "s3": '',
         "stock_num": 0
       },
       result: [],
@@ -72,58 +80,70 @@ export default {
         "imgUrl": ""
       },
       tree_s2: {
-        "_id": "2",
-        "k": "数量",
-        "v": [
-          {
-            "id": "large",
-            "name": "大包(12)",
-            "imgUrl": null
-          },
-          {
-            "id": "mini",
-            "name": "迷你装(5)",
-            "imgUrl": null
-          }
-        ],
-        "k_s": "s2"
+        // "_id": "2",
+        // "k": "数量",
+        // "v": [
+        //   {
+        //     "id": "large",
+        //     "name": "大包(12)",
+        //     "imgUrl": null
+        //   },
+        //   {
+        //     "id": "mini",
+        //     "name": "迷你装(5)",
+        //     "imgUrl": null
+        //   }
+        // ],
+        // "k_s": "s2"
       },
       tree_s1: {
-        "_id": "1",
-        "k": "口味",
-        "v": [
-          {
-            "id": "matcha",
-            "name": "抹茶",
-            "imgUrl": "http://hezijian6338.ddns.net:8833/mongodb/img/matcha_20190214114831.jpg"
-          },
-          {
-            "id": "origin",
-            "name": "原味",
-            "imgUrl": "http://hezijian6338.ddns.net:8833/mongodb/img/origin_20190214112019.jpg"
-          }
-        ],
-        "k_s": "s1"
+        // "_id": "1",
+        // "k": "口味",
+        // "v": [
+        //   {
+        //     "id": "matcha",
+        //     "name": "抹茶",
+        //     "imgUrl": "http://hezijian6338.ddns.net:8833/mongodb/img/matcha_20190214114831.jpg"
+        //   },
+        //   {
+        //     "id": "origin",
+        //     "name": "原味",
+        //     "imgUrl": "http://hezijian6338.ddns.net:8833/mongodb/img/origin_20190214112019.jpg"
+        //   }
+        // ],
+        // "k_s": "s1"
       }
     }
   },
   created: function () {
+    this.tree_s1 = this.$store.state.product.tree_s1
+    this.tree_s2 = this.$store.state.product.tree_s2
     for (var i = 0; i < this.tree_s1.v.length; i++) {
       this.tree.s1 = this.tree_s1.v[i].id
+      // this.tree.s1_name = this.tree_s2.v[i].name
       console.log(this.tree.s1)
       for (var j = 0; j < this.tree_s2.v.length; j++) {
         this.tree.s2 = this.tree_s2.v[j].id
+        // this.tree.s2_name = this.tree_s2.v[j].name
         console.log(this.tree.s2)
         this.list.push({
-          "id": this.tree.s1 + this.tree.s2,
+          "id": this.tree_s2.v[i].name + '--' + this.tree_s2.v[j].name,
           "s1": this.tree.s1,
+          // "s1_name": this.tree.s1_name,
           "s2": this.tree.s2,
+          // "s2_name": this.tree.s2_name,
+          "s3": '',
           "price": 0,
           "stock_num": 0
         })
       }
     }
     console.log(this.list)
+  },
+  computed: {
+    user () {
+      return this.$store.state.user.id
+    }
   },
   methods: {
     keyboardSelected (field) {
@@ -164,6 +184,11 @@ export default {
       this.stock_num = 0
       this.price = 0
       this.$toast(this.result[this.selectedIndex].s1)
+    },
+    confirm () {
+      this.$store.dispatch('SetSkulist', this.result).then(res => {
+        console.log(res)
+      })
     }
   }
 }
