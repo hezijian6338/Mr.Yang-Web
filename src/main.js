@@ -10,8 +10,15 @@ import {
   Dialog
 } from 'vant';
 import store from './store'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// import {
+//   VueEditor
+// } from "vue2-editor";
 Vue.use(Dialog);
+Vue.use(mavonEditor)
 Vue.use(components);
+// Vue.use(VueEditor);
 
 Vue.use(VueLazyload)
 

@@ -43,6 +43,13 @@ const routes = [{
     }
   },
   {
+    path: '/admin/addGoods',
+    component: () => import('../page/admin/addGoods'),
+    meta: {
+      title: '商品规格组合StepⅢ'
+    }
+  },
+  {
     path: '/login',
     component: () => import('../page/account/login'),
     meta: {
