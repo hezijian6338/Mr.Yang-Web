@@ -34,7 +34,24 @@ const product = {
       "k_s": "s2"
     },
     skulist: [],
-    sku: {},
+    sku: {
+      "id": "1",
+      "tree": [
+        "1",
+        "2"
+      ],
+      "list": [
+        "10",
+        "11",
+        "12",
+        "13"
+      ],
+      "collection_id": "1",
+      "stock_num": 99.0,
+      "price": "59",
+      "none_sku": false,
+      "hide_stock": false
+    },
   },
   mutations: {
     SET_PRODUCTID: (state, product_id) => {

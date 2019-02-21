@@ -1,5 +1,6 @@
 <template>
   <div>
+    <van-progress :percentage="50" />
     <van-steps :active="active">
       <van-step>主规格填写</van-step>
       <van-step>详情填写</van-step>

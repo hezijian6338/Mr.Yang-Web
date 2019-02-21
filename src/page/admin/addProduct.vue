@@ -1,5 +1,6 @@
 <template>
   <div>
+    <van-progress :percentage="50" />
     <van-cell-group>
       <van-field
         v-model="title"
