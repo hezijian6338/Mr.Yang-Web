@@ -33,7 +33,8 @@ const product = {
       ],
       "k_s": "s2"
     },
-    skulist: []
+    skulist: [],
+    sku: {},
   },
   mutations: {
     SET_PRODUCTID: (state, product_id) => {
@@ -47,6 +48,9 @@ const product = {
     },
     SET_SKULIST: (state, skulist) => {
       state.skulist = skulist
+    },
+    SET_SKU: (state, sku) => {
+      state.sku = sku
     }
   },
   actions: {
@@ -60,6 +64,18 @@ const product = {
         }
         commit('SET_SKULIST', list)
         resolve(list)
+      }).catch(error => {})
+    },
+    SetSku({
+      commit,
+      state
+    }, sku) {
+      return new Promise((resolve, reject) => {
+        sku.list = state.skulist
+        sku.tree.push(state.tree_s1.id)
+        sku.tree.push(state.tree_s2.id)
+        commit('SET_SKU', sku)
+        resolve(sku)
       }).catch(error => {})
     }
   }

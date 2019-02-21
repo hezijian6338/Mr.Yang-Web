@@ -43,7 +43,8 @@ import {
     Picker,
     Uploader,
     Info,
-    NumberKeyboard
+    NumberKeyboard,
+    Switch
 } from 'vant';
 
 const components = [
@@ -65,7 +66,7 @@ const components = [
     Dialog,
     headerNav,
     Tab, Tabs, Toast, Row, Checkbox, CheckboxGroup, SubmitBar, NavBar, Tabbar, TabbarItem, navigate, Panel, List, Step, Steps, Field,
-    Badge, BadgeGroup, Popup, productcard, Stepper, RadioGroup, Radio, Picker, Uploader, Info, NumberKeyboard
+    Badge, BadgeGroup, Popup, productcard, Stepper, RadioGroup, Radio, Picker, Uploader, Info, NumberKeyboard, Switch
 ]
 
 

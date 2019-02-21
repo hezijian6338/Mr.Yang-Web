@@ -6,7 +6,6 @@
       <van-checkbox v-for="(item) in list"
                     :key="item.id"
                     :name="item">
-        <!-- <p style="font-size:10px">{{item.s1}} -- {{item.s2}}</p> -->
         <p style="font-size:10px">{{item.id}}</p>
       </van-checkbox>
     </van-checkbox-group>
@@ -15,8 +14,15 @@
          :key="item.id"
          :name="item"
          style="display: inline">
-      <van-button type="default"
+      <van-button type="primary"
                   @click="selected(item,index)">{{item.id}}</van-button>
+      <!-- <van-cell-group>
+        <van-cell title="价格">
+          {{item.price}}
+        </van-cell>
+        <van-cell title="库存"
+                  :value="item.stock_num" />
+      </van-cell-group> -->
     </div>
     <van-number-keyboard :show="keyboardShow"
                          close-button-text="完成"
@@ -41,7 +47,30 @@
                    required
                    clearable />
       </van-dialog>
-      {{result}}
+    </div>
+    <div>
+      <van-field v-model="sku.price"
+                 label="商品默认价格"
+                 @touchstart.native.stop="keyboardSelected('skuPrice')"
+                 placeholder="请输入(千分位,例:5000 = ¥50)"
+                 required
+                 clearable />
+      <van-field v-model="sku.stock_num"
+                 label="商品默认库存数量"
+                 @touchstart.native.stop="keyboardSelected('skuStock_num')"
+                 placeholder="请输入规格的存货数量(整数)"
+                 required
+                 clearable />
+      <van-cell-group>
+        <van-cell title="是否隐藏规格选择">
+          <van-switch v-model="sku.none_sku"
+                      size="25px" />
+        </van-cell>
+        <van-cell title="是否隐藏剩余库存">
+          <van-switch v-model="sku.hide_stock"
+                      size="25px" />
+        </van-cell>
+      </van-cell-group>
 
     </div>
     <van-button type="default"
@@ -57,7 +86,7 @@ export default {
       show: false,
       keyboardShow: false,
       keyboardType: '',
-      selectedIndex: 0,
+      selectedIndex: 99,
       actions: [
         {
           name: '详细规格填写'
@@ -75,43 +104,25 @@ export default {
       },
       result: [],
       treeV: {
-        "id": "",
-        "name": "",
-        "imgUrl": ""
+        "id": '',
+        "name": '',
+        "imgUrl": ''
       },
       tree_s2: {
-        // "_id": "2",
-        // "k": "数量",
-        // "v": [
-        //   {
-        //     "id": "large",
-        //     "name": "大包(12)",
-        //     "imgUrl": null
-        //   },
-        //   {
-        //     "id": "mini",
-        //     "name": "迷你装(5)",
-        //     "imgUrl": null
-        //   }
-        // ],
-        // "k_s": "s2"
       },
       tree_s1: {
-        // "_id": "1",
-        // "k": "口味",
-        // "v": [
-        //   {
-        //     "id": "matcha",
-        //     "name": "抹茶",
-        //     "imgUrl": "http://hezijian6338.ddns.net:8833/mongodb/img/matcha_20190214114831.jpg"
-        //   },
-        //   {
-        //     "id": "origin",
-        //     "name": "原味",
-        //     "imgUrl": "http://hezijian6338.ddns.net:8833/mongodb/img/origin_20190214112019.jpg"
-        //   }
-        // ],
-        // "k_s": "s1"
+      },
+      sku: {
+        "id": '',
+        "tree": [
+        ],
+        "list": [
+        ],
+        "collection_id": '1',
+        "stock_num": 0,
+        "price": '',
+        "none_sku": false,
+        "hide_stock": false
       }
     }
   },
@@ -121,11 +132,11 @@ export default {
     for (var i = 0; i < this.tree_s1.v.length; i++) {
       this.tree.s1 = this.tree_s1.v[i].id
       // this.tree.s1_name = this.tree_s2.v[i].name
-      console.log(this.tree.s1)
+      // console.log(this.tree.s1)
       for (var j = 0; j < this.tree_s2.v.length; j++) {
         this.tree.s2 = this.tree_s2.v[j].id
         // this.tree.s2_name = this.tree_s2.v[j].name
-        console.log(this.tree.s2)
+        // console.log(this.tree.s2)
         this.list.push({
           "id": this.tree_s2.v[i].name + '--' + this.tree_s2.v[j].name,
           "s1": this.tree.s1,
@@ -138,7 +149,7 @@ export default {
         })
       }
     }
-    console.log(this.list)
+    // console.log(this.list)
   },
   computed: {
     user () {
@@ -154,6 +165,8 @@ export default {
       this.show = this.show == true ? false : true
       this.tree = item
       this.selectedIndex = index
+      this.price = this.result[index].price
+      this.stock_num = this.result[index].stock_num
     },
     onSelect (item) {
       // 点击选项时默认不会关闭菜单，可以手动关闭
@@ -167,6 +180,12 @@ export default {
       if (this.keyboardType == 'stock_num') {
         this.stock_num = parseInt(this.stock_num + '' + value)
       }
+      if (this.keyboardType == 'skuPrice') {
+        this.sku.price = this.sku.price + '' + value
+      }
+      if (this.keyboardType == 'skuStock_num') {
+        this.sku.stock_num = parseInt(this.sku.stock_num + '' + value)
+      }
     },
     onDelete () {
       if (this.keyboardType == 'price') {
@@ -177,16 +196,31 @@ export default {
         this.stock_num = this.stock_num + ''
         this.stock_num = parseInt(this.stock_num.substring(0, this.stock_num.length - 1))
       }
+      if (this.keyboardType == 'skuPrice') {
+        this.sku.price = this.sku.price.substring(0, this.sku.price.length - 1)
+      }
+      if (this.keyboardType == 'skuStock_num') {
+        this.sku.stock_num = this.sku.stock_num + ''
+        this.sku.stock_num = parseInt(this.sku.stock_num.substring(0, this.sku.stock_num.length - 1))
+      }
     },
     onClose () {
+      if (this.selectedIndex == 99) {
+        this.sku.price = this.price
+        this.sku.stock_num = this.stock_num
+      }
       this.result[this.selectedIndex].stock_num = this.stock_num
       this.result[this.selectedIndex].price = this.price
       this.stock_num = 0
       this.price = 0
-      this.$toast(this.result[this.selectedIndex].s1)
+      // this.$toast(this.result[this.selectedIndex].s1)
+      this.selectedIndex = 99
     },
     confirm () {
       this.$store.dispatch('SetSkulist', this.result).then(res => {
+        console.log(res)
+      })
+      this.$store.dispatch('SetSku', this.sku).then(res => {
         console.log(res)
       })
     }
@@ -197,6 +231,9 @@ export default {
 <style>
 .van-dialog {
   z-index: 2000;
+}
+.van-button {
+  margin-right: 10px;
 }
 </style>
 
