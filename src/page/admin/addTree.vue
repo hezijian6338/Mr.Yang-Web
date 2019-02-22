@@ -291,6 +291,7 @@ export default {
         this.$store.dispatch('AddTree_S2', this.tree_s2).then(res => {
           console.log("S2")
           console.log(res)
+          this.$router.push({ path: '/admin/addSkulist' })
         })
       })
     }

@@ -22,3 +22,27 @@ export function AddTree(tree) {
     data: tree
   })
 }
+
+export function AddSkulist(skulist) {
+  return request({
+    url: '/skuList/add',
+    method: 'post',
+    data: skulist
+  })
+}
+
+export function AddSku(sku) {
+  return request({
+    url: '/sku/add',
+    method: 'post',
+    data: sku
+  })
+}
+
+export function AddGoods(goods) {
+  return request({
+    url: '/goods/add',
+    method: 'post',
+    data: goods
+  })
+}

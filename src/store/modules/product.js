@@ -1,10 +1,14 @@
 import {
-  AddTree
+  AddTree,
+  AddSkulist,
+  AddSku,
+  AddGoods
 } from '../../api/product'
 
 const product = {
   state: {
     product_id: '',
+    goods_id: '',
     tree_s1: {
       "id": "5c6fa1516a002c2300c63ab3",
       "k": "口味",
@@ -66,6 +70,9 @@ const product = {
     SET_PRODUCTID: (state, product_id) => {
       state.product_id = product_id
     },
+    SET_GOODSID: (state, goods_id) => {
+      state.goods_id = goods_id
+    },
     SET_S1: (state, tree_s1) => {
       state.tree_s1 = tree_s1
     },
@@ -80,17 +87,17 @@ const product = {
     }
   },
   actions: {
-    SetSkulist({
+    SetGoods({
       commit
-    }, skulist) {
+    }, goods) {
       return new Promise((resolve, reject) => {
-        var list = []
-        for (var i = 0; i < skulist.length; i++) {
-          list.push(skulist[i].id)
-        }
-        commit('SET_SKULIST', list)
-        resolve(list)
-      }).catch(error => {})
+        AddGoods(goods).then(res => {
+          commit('SET_GOODSID', res.data.id)
+          resolve(res.data)
+        })
+      }).catch(error => {
+
+      })
     },
     SetSku({
       commit,
@@ -100,8 +107,25 @@ const product = {
         sku.list = state.skulist
         sku.tree.push(state.tree_s1.id)
         sku.tree.push(state.tree_s2.id)
-        commit('SET_SKU', sku)
-        resolve(sku)
+        AddSku(sku).then(res => {
+          commit('SET_SKU', res.data)
+          resolve(res.data)
+        })
+      }).catch(error => {})
+    },
+    SetSkulist({
+      commit
+    }, skulist) {
+      return new Promise((resolve, reject) => {
+        var list = []
+        for (var i = 0; i < skulist.length; i++) {
+          AddSkulist(skulist[i]).then(res => {
+            var skulist_id = res.data
+            list.push(skulist_id[i].id)
+          })
+        }
+        commit('SET_SKULIST', list)
+        resolve(list)
       }).catch(error => {})
     },
     AddTree_S1({

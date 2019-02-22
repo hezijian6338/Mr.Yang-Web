@@ -208,6 +208,10 @@ export default {
     confirm () {
       this.goods.sku_id = this.sku_id
       console.log(this.goods)
+      this.$store.dispatch('SetGoods', this.goods).then(res => {
+        console.log('SetGoods')
+        console.log(this.goods)
+      })
     },
     imagePreview () {
       ImagePreview(this.goods.thumb)

@@ -226,8 +226,10 @@ export default {
     },
     confirm () {
       this.$store.dispatch('SetSkulist', this.result).then(res => {
+        console.log('SetSkulist')
         console.log(res)
         this.$store.dispatch('SetSku', this.sku).then(res => {
+          console.log('SetSku')
           console.log(res)
           this.$router.push({ path: '/admin/addGoods' })
         })
