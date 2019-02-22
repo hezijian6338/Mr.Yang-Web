@@ -1,6 +1,8 @@
 <template>
   <div>
-    <van-progress :percentage="50" />
+    <div style="margin:8px">
+      <van-progress :percentage="50" />
+    </div>
     <van-steps :active="active">
       <van-step>主规格填写</van-step>
       <van-step>详情填写</van-step>
@@ -49,19 +51,27 @@
                         :block="true"
                         style="margin:0 auto">清空</van-button>
 
-            <van-field v-model="v[index].imageURL"
+            <van-field v-model="v[index].imgUrl"
                        :label="tree_v_imgUrl(index)"
                        placeholder="请左向滑动来上传图片"
+                       ref="uploadField"
+                       @focus="confirm_photoIndex(index)"
                        required
-                       clearable
-                       disabled />
+                       clearable>
+            </van-field>
+            <!-- <input style="width: 200px;"
+                   ref="fileInput"
+                   type="file"
+                   accept="image/*" /> -->
             <van-uploader slot="right"
                           :after-read="onRead"
+                          ref="uploader"
                           accept="image/gif, image/jpeg">
               <van-icon v-show="upload"
                         name="photograph"
                         size="40px" />
-              <!-- <img ref="photograph" style="width: 200px"> -->
+              <!-- <img ref="photograph"
+                   style="width: 200px"> -->
             </van-uploader>
           </van-swipe-cell>
         </div>
@@ -112,10 +122,13 @@
                   style="margin:0 auto">继续添加</van-button>
       <div style="text-align:center">
         <van-icon slot="icon"
+                  v-if="!loading"
                   :color="icon_color"
                   :name="icon_name"
                   size="30px"
                   @click="control_Tree" />
+        <van-loading slot="icon"
+                     v-if="loading" />
       </div>
       <van-button type="primary"
                   slot="right"
@@ -132,6 +145,8 @@ import { Upload } from "../../api/upload.js";
 export default {
   data () {
     return {
+      photoIndex: 99,
+      loading: false,
       active: 0,
       step: "s1",
       upload: true,
@@ -165,23 +180,37 @@ export default {
     };
   },
   methods: {
+    confirm_photoIndex (index) {
+      // this.$refs.uploader.focus
+      console.log(this.$refs.uploader[index])
+      // this.$refs.uploader[index].$refs.input.click()
+      this.$refs.uploader[index].$el.lastChild.click()
+      // this.$refs.uploader[index].getElementsByClassName('van-uploader__input').click()
+      // this.$refs.uploader[index].$el.getElementsByClassName('van-uploader__input').click()
+      // this.$refs.uploader[index].click()
+      // this.$refs.fileInput[index].click()
+      this.photoIndex = index
+      console.log(index)
+    },
     onRead (file) {
-      console.log(file);
+      console.log(file)
       let params = new FormData(); //创建form对象
       params.append("file", file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
       // console.log(params.get("file"));
       this.$dialog
         .confirm({
-          title: "再次确认框",
+          title: "再次确认'图片-" + (this.photoIndex + 1) + "'的上传",
           message: "是否上传此图片?"
         })
         .then(() => {
+          this.loading = true
           // on confirm
           Upload(params).then(response => {
-            this.$refs.photograph.src = response.data;
-            this.imageURL = response.data;
-            console.log(response.data);
-            this.upload = false;
+            // this.$refs.photograph.src = response.data
+            this.v[this.photoIndex].imgUrl = response.data
+            console.log(response.data)
+            this.upload = false
+            this.loading = false
           });
         })
         .catch(() => {
@@ -226,6 +255,8 @@ export default {
               this.tree_s2.v = this.v
               this.v = []
               console.log(this.tree_s2)
+              console.log(this.tree_s1)
+              this.finish()
             }
           })
           .catch(() => {
@@ -252,6 +283,16 @@ export default {
     continue_add () {
       this.icon_name = "add-o";
       this.icon_color = "red";
+    },
+    finish () {
+      this.$store.dispatch('AddTree_S1', this.tree_s1).then(res => {
+        console.log("S1")
+        console.log(res)
+        this.$store.dispatch('AddTree_S2', this.tree_s2).then(res => {
+          console.log("S2")
+          console.log(res)
+        })
+      })
     }
   }
 };

@@ -1,5 +1,4 @@
 import request from "../config/request"
-import data from "../data/data";
 
 export function GetGoods(goods_id) {
   return request({
@@ -13,5 +12,13 @@ export function AddCart(user_id, carts) {
     url: '/user/' + user_id + '/carts',
     method: 'post',
     data: carts
+  })
+}
+
+export function AddTree(tree) {
+  return request({
+    url: '/tree/add',
+    method: 'post',
+    data: tree
   })
 }

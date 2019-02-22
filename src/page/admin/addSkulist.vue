@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div style="margin:8px">
+      <van-progress :percentage="50" />
+    </div>
     <van-cell title="请选择你的规格组合:"
               icon="goods-collect-o" />
     <van-checkbox-group v-model="result">
@@ -75,6 +78,11 @@
     </div>
     <van-button type="default"
                 @click="confirm">{{user}}</van-button>
+    <!-- <router-link :to="'/admin/addTree'">
+      <van-button size="small"
+      @click="confirm"
+                  type="default">完成~{{user}}</van-button>
+    </router-link> -->
   </div>
 </template>
 <script>
@@ -138,7 +146,7 @@ export default {
         // this.tree.s2_name = this.tree_s2.v[j].name
         // console.log(this.tree.s2)
         this.list.push({
-          "id": this.tree_s2.v[i].name + '--' + this.tree_s2.v[j].name,
+          "id": this.tree_s1.v[i].name + '--' + this.tree_s2.v[j].name,
           "s1": this.tree.s1,
           // "s1_name": this.tree.s1_name,
           "s2": this.tree.s2,
@@ -219,10 +227,12 @@ export default {
     confirm () {
       this.$store.dispatch('SetSkulist', this.result).then(res => {
         console.log(res)
+        this.$store.dispatch('SetSku', this.sku).then(res => {
+          console.log(res)
+          this.$router.push({ path: '/admin/addGoods' })
+        })
       })
-      this.$store.dispatch('SetSku', this.sku).then(res => {
-        console.log(res)
-      })
+
     }
   }
 }
