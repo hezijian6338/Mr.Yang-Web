@@ -83,6 +83,7 @@
       @click="confirm"
                   type="default">完成~{{user}}</van-button>
     </router-link> -->
+    {{result}}
   </div>
 </template>
 <script>

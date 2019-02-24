@@ -29,17 +29,17 @@ const product = {
       "id": "5c6fa1516a002c2300c63ab7",
       "k": "盒装",
       "v": [{
-          "_id": "5c6fa1516a002c2300c63ab4",
+          "id": "5c6fa1516a002c2300c63ab4",
           "name": "大",
           "imgUrl": ""
         },
         {
-          "_id": "5c6fa1516a002c2300c63ab5",
+          "id": "5c6fa1516a002c2300c63ab5",
           "name": "中",
           "imgUrl": ""
         },
         {
-          "_id": "5c6fa1516a002c2300c63ab6",
+          "id": "5c6fa1516a002c2300c63ab6",
           "name": "小",
           "imgUrl": ""
         }
@@ -120,8 +120,10 @@ const product = {
         var list = []
         for (var i = 0; i < skulist.length; i++) {
           AddSkulist(skulist[i]).then(res => {
+            console.log('skulist')
+            console.log(res.data)
             var skulist_id = res.data
-            list.push(skulist_id[i].id)
+            list.push(skulist_id.id)
           })
         }
         commit('SET_SKULIST', list)
