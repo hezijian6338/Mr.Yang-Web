@@ -53,7 +53,7 @@
 
             <van-field v-model="v[index].imgUrl"
                        :label="tree_v_imgUrl(index)"
-                       placeholder="请左向滑动来上传图片"
+                       placeholder="请点击来上传图片(别手动输入)"
                        ref="uploadField"
                        @focus="confirm_photoIndex(index)"
                        required
