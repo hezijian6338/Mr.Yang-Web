@@ -93,7 +93,10 @@ export default {
       this.product.price = this.product.price.substring(0, this.product.price.length - 1)
     },
     confirm () {
-      console.log(this.product.price)
+      this.$store.dispatch('SetProduct', this.product).then(res => {
+        console.log(res)
+      })
+      console.log(this.product)
     },
   }
 };

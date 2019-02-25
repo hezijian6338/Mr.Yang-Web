@@ -2,7 +2,8 @@ import {
   AddTree,
   AddSkulist,
   AddSku,
-  AddGoods
+  AddGoods,
+  AddProduct
 } from '../../api/product'
 
 const product = {
@@ -87,6 +88,17 @@ const product = {
     }
   },
   actions: {
+    SetProduct({commit, state}, product){
+      return new Promise((resolve, reject) => {
+        product.goods_id = state.goods_id
+        AddProduct(product).then(res => {
+          commit('SET_PRODUCTID', res.data.id)
+          resolve(res.data)
+        }).catch(error => {
+
+        })
+      })
+    },
     SetGoods({
       commit
     }, goods) {
@@ -104,7 +116,9 @@ const product = {
       state
     }, sku) {
       return new Promise((resolve, reject) => {
-        sku.list = state.skulist
+        for(var i = 0; i < state.skulist.length; i++){
+          sku.list.push(state.skulist[i])
+        }
         sku.tree.push(state.tree_s1.id)
         sku.tree.push(state.tree_s2.id)
         AddSku(sku).then(res => {

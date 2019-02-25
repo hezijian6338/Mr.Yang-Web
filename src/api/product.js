@@ -46,3 +46,11 @@ export function AddGoods(goods) {
     data: goods
   })
 }
+
+export function AddProduct(product) {
+  return request({
+    url: '/product/add',
+    method: 'post',
+    data: product
+  })
+}
