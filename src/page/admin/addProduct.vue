@@ -62,6 +62,11 @@ export default {
       }
     };
   },
+  computed: {
+    user() {
+      return this.$store.state.user.id
+    }
+  },
   methods: {
     onRead (file) {
       console.log(file);

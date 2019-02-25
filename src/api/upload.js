@@ -1,16 +1,16 @@
 import request from "../config/request_photo";
 
-export function Upload(file) {
+export function Upload(id, file) {
     return request({
-        url: '/mongodb/1/upload',
+        url: '/mongodb/'+ id +'/upload',
         method: 'post',
         data: file
     })
 }
 
-export function UserImages(file) {
+export function UserImages(id) {
     return request({
-        url: '/mongodb/1/images',
+        url: '/mongodb/' + id + '/images',
         method: 'get'
     })
 }

@@ -21,6 +21,11 @@ export default {
       // formData: new FormData() //在此处初始化时,即实例化 FormData
     };
   },
+  computed: {
+    user() {
+      return this.$store.state.user.id
+    }
+  },
   methods: {
     onRead(file) {
       console.log(file);
@@ -34,7 +39,7 @@ export default {
         })
         .then(() => {
           // on confirm
-          Upload(params).then(response => {
+          Upload(this.user(), params).then(response => {
             this.$refs.photograph.src = response.data;
             console.log(response.data);
           });
@@ -45,7 +50,7 @@ export default {
     }
   },
   created() {
-    UserImages().then(response => {
+    UserImages(this.user()).then(response => {
       this.images = response.data;
       console.log(response.data);
     });

@@ -179,6 +179,11 @@ export default {
       }
     };
   },
+  computed: {
+    user() {
+      return this.$store.state.user.id
+    }
+  },
   methods: {
     confirm_photoIndex (index) {
       // this.$refs.uploader.focus
@@ -205,7 +210,7 @@ export default {
         .then(() => {
           this.loading = true
           // on confirm
-          Upload(params).then(response => {
+          Upload(this.user(), params).then(response => {
             // this.$refs.photograph.src = response.data
             this.v[this.photoIndex].imgUrl = response.data
             console.log(response.data)
