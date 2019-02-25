@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin:8px">
-      <van-progress :percentage="50"/>
+      <van-progress :percentage="25"/>
     </div>
     <van-cell title="请选择你的规格组合:" icon="goods-collect-o"/>
     <van-checkbox-group v-model="result">
@@ -80,7 +80,6 @@
       @click="confirm"
                   type="default">完成~{{user}}</van-button>
     </router-link>-->
-    {{result}}
   </div>
 </template>
 <script>
@@ -191,8 +190,10 @@ export default {
     },
     onDelete() {
       if (this.keyboardType == "price") {
+        if(this.price.length != 0 || this.price != 0) {
         this.price = this.price + "";
         this.price = parseInt(this.price.substring(0, this.price.length - 1));
+        }
       }
       if (this.keyboardType == "stock_num") {
         this.stock_num = this.stock_num + "";

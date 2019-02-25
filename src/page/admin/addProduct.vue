@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin:8px">
-      <van-progress :percentage="50" />
+      <van-progress :percentage="100" />
     </div>
     <van-cell-group>
       <van-field v-model="product.title"

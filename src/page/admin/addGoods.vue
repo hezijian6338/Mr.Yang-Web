@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <div style="margin:8px">
-      <van-progress :percentage="50" />
+      <van-progress :percentage="75" />
     </div>
     <div>
       <van-cell-group>

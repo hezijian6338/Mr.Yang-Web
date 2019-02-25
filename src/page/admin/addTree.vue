@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin:8px">
-      <van-progress :percentage="50" />
+      <van-progress :percentage="0" />
     </div>
     <van-steps :active="active">
       <van-step>主规格填写</van-step>
@@ -22,7 +22,7 @@
         </div>
         <div v-for="(tree, index) in v"
              :key="index">
-          <van-swipe-cell :right-width="65"
+          <van-swipe-cell :right-width="50"
                           :left-width="65"
                           style="margin-top:10px">
             <van-button type="warning"
@@ -90,7 +90,7 @@
         </div>
         <div v-for="(tree, index) in v"
              :key="index">
-          <van-swipe-cell :right-width="65"
+          <van-swipe-cell :right-width="50"
                           :left-width="65"
                           style="margin-top:10px">
             <van-button type="warning"
