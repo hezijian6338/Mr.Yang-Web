@@ -180,7 +180,7 @@ export default {
     };
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user.id
     }
   },
@@ -270,24 +270,24 @@ export default {
       }
     },
     clearTree_name (index) {
-      this.v[index].name = "";
+      this.v[index].name = ""
     },
     clearTree_imgUrl (index) {
-      this.v[index].imgUrl = "";
+      this.v[index].imgUrl = ""
     },
     tree_v_name (index) {
-      return "规格详情-" + (index + 1);
+      return "规格详情-" + (index + 1)
     },
     tree_v_imgUrl (index) {
-      return "图片-" + (index + 1);
+      return "图片-" + (index + 1)
     },
     finish_add () {
-      this.icon_name = "passed";
-      this.icon_color = "green";
+      this.icon_name = "passed"
+      this.icon_color = "green"
     },
     continue_add () {
-      this.icon_name = "add-o";
-      this.icon_color = "red";
+      this.icon_name = "add-o"
+      this.icon_color = "red"
     },
     finish () {
       this.$store.dispatch('AddTree_S1', this.tree_s1).then(res => {

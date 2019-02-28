@@ -88,7 +88,10 @@ const product = {
     }
   },
   actions: {
-    SetProduct({commit, state}, product){
+    SetProduct({
+      commit,
+      state
+    }, product) {
       return new Promise((resolve, reject) => {
         product.goods_id = state.goods_id
         AddProduct(product).then(res => {
@@ -116,7 +119,7 @@ const product = {
       state
     }, sku) {
       return new Promise((resolve, reject) => {
-        for(var i = 0; i < state.skulist.length; i++){
+        for (var i = 0; i < state.skulist.length; i++) {
           sku.list.push(state.skulist[i])
         }
         sku.tree.push(state.tree_s1.id)
@@ -134,10 +137,10 @@ const product = {
         var list = []
         for (var i = 0; i < skulist.length; i++) {
           AddSkulist(skulist[i]).then(res => {
-            console.log('skulist')
-            console.log(res.data)
+            // console.log('skulist')
             var skulist_id = res.data
             list.push(skulist_id.id)
+            // console.log(list)
           })
         }
         commit('SET_SKULIST', list)

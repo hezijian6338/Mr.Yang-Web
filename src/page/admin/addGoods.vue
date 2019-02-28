@@ -211,7 +211,7 @@ export default {
       this.$store.dispatch('SetGoods', this.goods).then(res => {
         console.log('SetGoods')
         console.log(this.goods)
-          this.$router.push({ path: "/admin/addProduct" })
+        this.$router.push({ path: "/admin/addProduct" })
       })
     },
     imagePreview () {
