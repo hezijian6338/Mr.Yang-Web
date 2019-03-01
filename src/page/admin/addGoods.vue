@@ -56,7 +56,7 @@
            style="display: inline">
         <img :src="item"
              style="width: 50px;">
-      </div> -->
+      </div>-->
       <van-button type="primary"
                   @click="imagePreview">图片预览</van-button>
     </div>
@@ -67,15 +67,14 @@
                   @change="change"
                   :toolbars="toolbars" />
     <!-- <div v-html="html"
-         readModel="true"></div> -->
-
+    readModel="true"></div>-->
     <!-- <mavon-editor class="md"
                   :value="value"
                   :subfield="prop.subfield"
                   :defaultOpen="prop.defaultOpen"
                   :toolbarsFlag="prop.toolbarsFlag"
                   :editable="prop.editable"
-                  :scrollStyle="prop.scrollStyle"></mavon-editor> -->
+    :scrollStyle="prop.scrollStyle"></mavon-editor>-->
     <van-button type="primary"
                 @click="confirm()">{{sku_id}}</van-button>
     <van-dialog v-model="finishedLoading"
@@ -84,13 +83,12 @@
       <van-loading v-if="finishedLoading" />
     </van-dialog>
   </div>
-
 </template>
 
 <script>
-import { Upload } from "../../api/upload.js";
+import { Upload } from '../../api/upload.js';
 import { ImagePreview } from 'vant';
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 
 export default {
   data () {
@@ -138,82 +136,77 @@ export default {
         preview: true // 预览
       },
       goods: {
-        "id": "",
-        "product_id": "",
-        "title": "超级雪花酥",
-        "subtitle": "超级无敌普通的雪花酥",
-        "price": 5555,
-        "market_price": 9999,
-        "express": "",
-        "remain": 19,
-        "thumb": [
-          "https://photostation.dragonsking.cn/mongodb/img/774ad515-61db-487c-9503-183116e52e59_20190301140016.jpg",
-          "https://photostation.dragonsking.cn/mongodb/img/IMG_8225_20190301140044.jpg",
-          "https://photostation.dragonsking.cn/mongodb/img/IMG_8223_20190301140124.jpg"
+        id: '',
+        product_id: '',
+        title: '超级雪花酥',
+        subtitle: '超级无敌普通的雪花酥',
+        price: 5555,
+        market_price: 9999,
+        express: '',
+        remain: 19,
+        thumb: [
+          'https://photostation.dragonsking.cn/mongodb/img/774ad515-61db-487c-9503-183116e52e59_20190301140016.jpg',
+          'https://photostation.dragonsking.cn/mongodb/img/IMG_8225_20190301140044.jpg',
+          'https://photostation.dragonsking.cn/mongodb/img/IMG_8223_20190301140124.jpg'
         ],
-        "info": "<div class=\"hljs-center\">\n<p>综上所述,你不买不行!~</p>\n</div>\n<p><s>真的十分好吃</s></p>\n<h1><a id=\"_6\"></a>一千多万人的回头品牌</h1>\n",
-        "goodsPromises": [
-          "1",
-          "2",
-          "3",
-          "4",
-          "5"
-        ],
-        "sku_id": "5c78ca4d6a002c20246b58fd"
+        info:
+          '<div class="hljs-center">\n<p>综上所述,你不买不行!~</p>\n</div>\n<p><s>真的十分好吃</s></p>\n<h1><a id="_6"></a>一千多万人的回头品牌</h1>\n',
+        goodsPromises: ['1', '2', '3', '4', '5'],
+        sku_id: '5c78ca4d6a002c20246b58fd'
       }
-    }
+    };
   },
   computed: {
     prop () {
       let data = {
-        subfield: false,// 单双栏模式
-        defaultOpen: 'preview',//edit： 默认展示编辑区域 ， preview： 默认展示预览区域 
+        subfield: false, // 单双栏模式
+        defaultOpen: 'preview', //edit： 默认展示编辑区域 ， preview： 默认展示预览区域
         editable: false,
         toolbarsFlag: false,
         scrollStyle: true
-      }
-      return data
+      };
+      return data;
     },
     sku_id () {
-      return this.$store.state.product.sku.id
+      return this.$store.state.product.sku.id;
     },
     ...mapGetters(['id'])
   },
   methods: {
     keyboardSelected (field) {
-      this.keyboardShow = true
-      this.keyboardType = field
+      this.keyboardShow = true;
+      this.keyboardType = field;
     },
     imgAdd (pos, file) {
       // 第一步.将图片上传到服务器.
       var formdata = new FormData();
       formdata.append('file', file);
       Upload(this.id, formdata).then(res => {
-        this.$refs.md.$img2Url(pos, res.data)
-        console.log(pos)
-      })
+        this.$refs.md.$img2Url(pos, res.data);
+        console.log(pos);
+      });
     },
     change (value, render) {
-      this.goods.info = render
+      this.goods.info = render;
       // console.log(render)
     },
     onRead (file) {
-      this.loading = true
+      this.loading = true;
       console.log(file);
       let params = new FormData(); //创建form对象
-      params.append("file", file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
+      params.append('file', file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
       // console.log(params.get("file"));
       this.$dialog
         .confirm({
-          title: "再次确认框",
-          message: "是否上传此图片?"
+          title: '再次确认框',
+          message: '是否上传此图片?'
         })
         .then(() => {
           // on confirm
           Upload(this.id, params).then(response => {
             this.goods.thumb.push(response.data);
             console.log(response.data);
-            this.loading = false
+            this.loading = false;
           });
         })
         .catch(() => {
@@ -222,22 +215,29 @@ export default {
     },
     onInput (value) {
       if (this.keyboardType == 'market_price') {
-        this.goods.market_price = parseInt(this.goods.market_price + '' + value)
+        this.goods.market_price = parseInt(
+          this.goods.market_price + '' + value
+        );
       }
       if (this.keyboardType == 'price') {
-        this.goods.price = parseInt(this.goods.price + '' + value)
+        this.goods.price = parseInt(this.goods.price + '' + value);
       }
-
     },
     onDelete () {
       if (this.keyboardType == 'price') {
-        this.goods.price = this.goods.price + ''
-        this.goods.price = parseInt(this.goods.price.substring(0, this.goods.price.length - 1))
+        this.goods.price = this.goods.price + '';
+        this.goods.price = parseInt(
+          this.goods.price.substring(0, this.goods.price.length - 1)
+        );
       }
       if (this.keyboardType == 'market_price') {
-        this.goods.market_price = this.goods.market_price + ''
-        this.goods.market_price = parseInt(this.goods.market_price.substring(0, this.goods.market_price.length - 1))
-
+        this.goods.market_price = this.goods.market_price + '';
+        this.goods.market_price = parseInt(
+          this.goods.market_price.substring(
+            0,
+            this.goods.market_price.length - 1
+          )
+        )
       }
     },
     confirm () {
@@ -253,15 +253,18 @@ export default {
       setTimeout(() => {
         this.$store.dispatch('updateProduct').then(res => {
           console.log(res)
+        })
+        this.$store.dispatch('updateGoods').then(res => {
+          console.log(res)
           this.finishedLoading = false
           this.$store.commit('SET_NULL')
-          this.$router.push({ path: "/admin/addProduct" })
+          this.$router.push({ path: '/admin/addProduct' })
         })
       }, 3000)
     },
     imagePreview () {
-      ImagePreview(this.goods.thumb)
+      ImagePreview(this.goods.thumb);
     }
   }
-}
+};
 </script>

@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { Upload } from "../../api/upload.js";
+import { Upload } from '../../api/upload.js';
 import { mapGetters } from 'vuex'
 
 export default {
@@ -61,10 +61,10 @@ export default {
       upload: true,
       keyboardShow: false,
       product: {
-        title: "",
-        price: "",
-        imageURL: "",
-        goods_id: ""
+        title: '',
+        price: '',
+        imageURL: '',
+        goods_id: ''
       }
     };
   },
@@ -83,14 +83,14 @@ export default {
     onRead (file) {
       console.log(file);
       let params = new FormData(); //创建form对象
-      params.append("file", file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
+      params.append('file', file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
       // console.log(params.get("file"));
       this.uploadLoading = true
       this.upload = false
       this.$dialog
         .confirm({
-          title: "再次确认框",
-          message: "是否上传此图片?"
+          title: '再次确认框',
+          message: '是否上传此图片?'
         })
         .then(() => {
           // on confirm
@@ -99,7 +99,7 @@ export default {
             this.product.imageURL = response.data
             console.log(response.data)
             this.uploadLoading = false
-          });
+          })
         })
         .catch(() => {
           // on cancel
@@ -116,9 +116,9 @@ export default {
         console.log(res)
       })
       console.log(this.product)
-    },
+    }
   }
-};
+}
 </script>
 <style>
 .div {

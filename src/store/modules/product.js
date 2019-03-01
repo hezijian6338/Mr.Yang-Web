@@ -4,7 +4,8 @@ import {
   AddSku,
   AddGoods,
   AddProduct,
-  UpdateProduct
+  UpdateProduct,
+  UpdateGoods
 } from '../../api/product'
 
 const product = {
@@ -12,60 +13,60 @@ const product = {
     product_id: '',
     goods_id: '',
     tree_s1: {
-      "id": "",
-      "k": "",
-      "v": [{
-          "id": "",
-          "name": "",
-          "imgUrl": ""
-        },
-        {
-          "id": "",
-          "name": "",
-          "imgUrl": ""
-        }
+      'id': '',
+      'k': '',
+      'v': [{
+        'id': '',
+        'name': '',
+        'imgUrl': ''
+      },
+      {
+        'id': '',
+        'name': '',
+        'imgUrl': ''
+      }
       ],
-      "k_s": "s1"
+      'k_s': 's1'
     },
     tree_s2: {
-      "id": "",
-      "k": "",
-      "v": [{
-          "id": "",
-          "name": "",
-          "imgUrl": ""
-        },
-        {
-          "id": "",
-          "name": "",
-          "imgUrl": ""
-        },
-        {
-          "id": "",
-          "name": "",
-          "imgUrl": ""
-        }
+      'id': '',
+      'k': '',
+      'v': [{
+        'id': '',
+        'name': '',
+        'imgUrl': ''
+      },
+      {
+        'id': '',
+        'name': '',
+        'imgUrl': ''
+      },
+      {
+        'id': '',
+        'name': '',
+        'imgUrl': ''
+      }
       ],
-      "k_s": "s2"
+      'k_s': 's2'
     },
     skulist: [],
     sku: {
-      "id": "1",
-      "tree": [
-        "",
-        ""
+      'id': '1',
+      'tree': [
+        '',
+        ''
       ],
-      "list": [
-        "",
-        "",
-        "",
-        ""
+      'list': [
+        '',
+        '',
+        '',
+        ''
       ],
-      "collection_id": "",
-      "stock_num": 0,
-      "price": "",
-      "none_sku": false,
-      "hide_stock": false
+      'collection_id': '',
+      'stock_num': 0,
+      'price': '',
+      'none_sku': false,
+      'hide_stock': false
     },
   },
   mutations: {
@@ -116,9 +117,9 @@ const product = {
         'goods_id': ''
       }
       updateFieldMap.goods_id = state.goods_id
-      console.log(updateFieldMap)
-      console.log(state.goods_id)
-      console.log(state.product_id)
+      // console.log(updateFieldMap)
+      // console.log(state.goods_id)
+      // console.log(state.product_id)
       UpdateProduct(state.product_id, updateFieldMap).then(res => {
         console.log(res)
       })
@@ -133,6 +134,17 @@ const product = {
         })
       }).catch(error => {
 
+      })
+    },
+    updateGoods({
+      state
+    }) {
+      var updateFieldMap = {
+        'product_id': ''
+      }
+      updateFieldMap.product_id = state.product_id
+      UpdateGoods(state.goods_id, updateFieldMap).then(res => {
+        console.log(res)
       })
     },
     SetSku({

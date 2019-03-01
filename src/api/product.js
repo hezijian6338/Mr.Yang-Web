@@ -1,4 +1,4 @@
-import request from "../config/request"
+import request from '../config/request'
 
 export function GetGoods(goods_id) {
   return request({
@@ -58,6 +58,14 @@ export function AddProduct(product) {
 export function UpdateProduct(id, updateFieldMap) {
   return request({
     url: '/product/' + id,
+    method: 'patch',
+    data: updateFieldMap
+  })
+}
+
+export function UpdateGoods(id, updateFieldMap) {
+  return request({
+    url: '/goods/' + id,
     method: 'patch',
     data: updateFieldMap
   })

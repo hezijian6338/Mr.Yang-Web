@@ -2,7 +2,7 @@ import request from "../config/request_photo";
 
 export function Upload(id, file) {
     return request({
-        url: '/mongodb/'+ id +'/upload',
+        url: '/mongodb/' + id + '/upload',
         method: 'post',
         data: file
     })
