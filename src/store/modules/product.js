@@ -3,13 +3,14 @@ import {
   AddSkulist,
   AddSku,
   AddGoods,
-  AddProduct
+  AddProduct,
+  UpdateProduct
 } from '../../api/product'
 
 const product = {
   state: {
-    product_id: '',
-    goods_id: '',
+    product_id: '5c78c9386a002c20246b58ef',
+    goods_id: '5c78cae66a002c20246b58fe',
     tree_s1: {
       "id": "5c6fa1516a002c2300c63ab3",
       "k": "口味",
@@ -89,17 +90,30 @@ const product = {
   },
   actions: {
     SetProduct({
-      commit,
-      state
+      commit
     }, product) {
       return new Promise((resolve, reject) => {
-        product.goods_id = state.goods_id
+        // product.goods_id = state.goods_id
         AddProduct(product).then(res => {
           commit('SET_PRODUCTID', res.data.id)
           resolve(res.data)
         }).catch(error => {
 
         })
+      })
+    },
+    updateProduct({
+      state
+    }) {
+      var updateFieldMap = {
+        'goods_id': ''
+      }
+      updateFieldMap.goods_id = state.goods_id
+      console.log(updateFieldMap)
+      console.log(state.goods_id)
+      console.log(state.product_id)
+      UpdateProduct(state.product_id, updateFieldMap).then(res => {
+        console.log(res)
       })
     },
     SetGoods({

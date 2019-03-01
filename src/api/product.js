@@ -54,3 +54,11 @@ export function AddProduct(product) {
     data: product
   })
 }
+
+export function UpdateProduct(id, updateFieldMap) {
+  return request({
+    url: '/product/' + id,
+    method: 'patch',
+    data: updateFieldMap
+  })
+}

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin:8px">
-      <van-progress :percentage="0" />
+      <van-progress :percentage="50" />
     </div>
     <van-steps :active="active">
       <van-step>主规格填写</van-step>
@@ -136,16 +136,19 @@
                   :block="true"
                   style="margin:0 auto">完成</van-button>
     </van-swipe-cell>
+    <van-loading v-if="finisedLoading" />
   </div>
 </template>
 
 <script>
 import { Upload } from "../../api/upload.js";
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
       photoIndex: 99,
+      finisedLoading: false,
       loading: false,
       active: 0,
       step: "s1",
@@ -182,7 +185,8 @@ export default {
   computed: {
     user () {
       return this.$store.state.user.id
-    }
+    },
+    ...mapGetters(['id'])
   },
   methods: {
     confirm_photoIndex (index) {
@@ -210,7 +214,7 @@ export default {
         .then(() => {
           this.loading = true
           // on confirm
-          Upload(this.user(), params).then(response => {
+          Upload(this.id, params).then(response => {
             // this.$refs.photograph.src = response.data
             this.v[this.photoIndex].imgUrl = response.data
             console.log(response.data)
@@ -290,12 +294,14 @@ export default {
       this.icon_color = "red"
     },
     finish () {
+      this.finisedLoading = true
       this.$store.dispatch('AddTree_S1', this.tree_s1).then(res => {
         console.log("S1")
         console.log(res)
         this.$store.dispatch('AddTree_S2', this.tree_s2).then(res => {
           console.log("S2")
           console.log(res)
+          this.finisedLoading = false
           this.$router.push({ path: '/admin/addSkulist' })
         })
       })

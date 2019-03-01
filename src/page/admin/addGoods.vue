@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <div style="margin:8px">
-      <van-progress :percentage="75" />
+      <van-progress :percentage="100" />
     </div>
     <div>
       <van-cell-group>
@@ -20,7 +20,13 @@
                    autosize />
         <van-field v-model="goods.price"
                    label="商品默认价格"
-                   @touchstart.native.stop="keyboardShow = true"
+                   @touchstart.native.stop="keyboardSelected('price')"
+                   placeholder="请输入(千分位,例:5000 = ¥50)"
+                   required
+                   clearable />
+        <van-field v-model="goods.market_price"
+                   label="商品市场价格"
+                   @touchstart.native.stop="keyboardSelected('market_price')"
                    placeholder="请输入(千分位,例:5000 = ¥50)"
                    required
                    clearable />
@@ -72,6 +78,11 @@
                   :scrollStyle="prop.scrollStyle"></mavon-editor> -->
     <van-button type="primary"
                 @click="confirm()">{{sku_id}}</van-button>
+    <van-dialog v-model="finishedLoading"
+                :show-cancel-button="false"
+                :show-confirm-button="false">
+      <van-loading v-if="finishedLoading" />
+    </van-dialog>
 
   </div>
 
@@ -80,10 +91,13 @@
 <script>
 import { Upload } from "../../api/upload.js";
 import { ImagePreview } from 'vant';
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
+      finishedLoading: false,
+      keyboardType: '',
       loading: false,
       height: 300,
       keyboardShow: false,
@@ -127,14 +141,18 @@ export default {
       goods: {
         "id": "",
         "product_id": "",
-        "title": "",
-        "subtitle": "",
-        "price": 0,
-        "market_price": 0,
+        "title": "超级雪花酥",
+        "subtitle": "超级无敌普通的雪花酥",
+        "price": 5555,
+        "market_price": 9999,
         "express": "",
         "remain": 19,
-        "thumb": [],
-        "info": "",
+        "thumb": [
+          "https://photostation.dragonsking.cn/mongodb/img/774ad515-61db-487c-9503-183116e52e59_20190301140016.jpg",
+          "https://photostation.dragonsking.cn/mongodb/img/IMG_8225_20190301140044.jpg",
+          "https://photostation.dragonsking.cn/mongodb/img/IMG_8223_20190301140124.jpg"
+        ],
+        "info": "<div class=\"hljs-center\">\n<p>综上所述,你不买不行!~</p>\n</div>\n<p><s>真的十分好吃</s></p>\n<h1><a id=\"_6\"></a>一千多万人的回头品牌</h1>\n",
         "goodsPromises": [
           "1",
           "2",
@@ -142,7 +160,7 @@ export default {
           "4",
           "5"
         ],
-        "sku_id": ""
+        "sku_id": "5c78ca4d6a002c20246b58fd"
       }
     }
   },
@@ -159,14 +177,19 @@ export default {
     },
     sku_id () {
       return this.$store.state.product.sku.id
-    }
+    },
+    ...mapGetters(['id'])
   },
   methods: {
+    keyboardSelected (field) {
+      this.keyboardShow = true
+      this.keyboardType = field
+    },
     imgAdd (pos, file) {
       // 第一步.将图片上传到服务器.
       var formdata = new FormData();
       formdata.append('file', file);
-      Upload(formdata).then(res => {
+      Upload(this.id, formdata).then(res => {
         this.$refs.md.$img2Url(pos, res.data)
         console.log(pos)
       })
@@ -188,7 +211,7 @@ export default {
         })
         .then(() => {
           // on confirm
-          Upload(params).then(response => {
+          Upload(this.id, params).then(response => {
             this.goods.thumb.push(response.data);
             console.log(response.data);
             this.loading = false
@@ -199,20 +222,43 @@ export default {
         });
     },
     onInput (value) {
-      this.goods.price = parseInt(this.goods.price + '' + value)
+      if (this.keyboardType == 'market_price') {
+        this.goods.market_price = parseInt(this.goods.market_price + '' + value)
+      }
+      if (this.keyboardType == 'price') {
+        this.goods.price = parseInt(this.goods.price + '' + value)
+      }
+
     },
     onDelete () {
-      this.goods.price = this.goods.price + ''
-      this.goods.price = parseInt(this.goods.price.substring(0, this.goods.price.length - 1))
+      if (this.keyboardType == 'price') {
+        this.goods.price = this.goods.price + ''
+        this.goods.price = parseInt(this.goods.price.substring(0, this.goods.price.length - 1))
+      }
+      if (this.keyboardType == 'market_price') {
+        this.goods.market_price = this.goods.market_price + ''
+        this.goods.market_price = parseInt(this.goods.market_price.substring(0, this.goods.market_price.length - 1))
+
+      }
     },
     confirm () {
+      this.finishedLoading = true
       this.goods.sku_id = this.sku_id
-      console.log(this.goods)
+      // console.log(this.goods)
       this.$store.dispatch('SetGoods', this.goods).then(res => {
         console.log('SetGoods')
-        console.log(this.goods)
-        this.$router.push({ path: "/admin/addProduct" })
+        console.log(res)
+
+        // this.$router.push({ path: "/admin/addProduct" })
       })
+      setTimeout(() => {
+        this.$store.dispatch('updateProduct').then(res => {
+          console.log(res)
+          this.finishedLoading = false
+          this.$store.commit('SET_NULL')
+          this.$router.push({ path: "/admin/addProduct" })
+        })
+      }, 3000)
     },
     imagePreview () {
       ImagePreview(this.goods.thumb)

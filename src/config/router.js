@@ -16,10 +16,11 @@ const routes = [{
   },
   {
     path: '/admin',
-    component: () => import('../page/admin/index'),
-    meta: {
-      title: '管理员'
-    }
+    // component: () => import('../page/admin/index'),
+    // meta: {
+    //   title: '管理员'
+    // }
+    redirect: '/admin/addProduct'
   },
   {
     path: '/admin/addProduct',

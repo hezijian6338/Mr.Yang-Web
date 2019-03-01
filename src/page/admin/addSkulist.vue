@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin:8px">
-      <van-progress :percentage="25" />
+      <van-progress :percentage="75" />
     </div>
     <van-cell title="请选择你的规格组合:"
               icon="goods-collect-o" />
@@ -87,6 +87,11 @@
       @click="confirm"
                   type="default">完成~{{user}}</van-button>
     </router-link>-->
+    <van-dialog v-model="finishedLoading"
+                :show-cancel-button="false"
+                :show-confirm-button="false">
+      <van-loading v-if="finishedLoading" />
+    </van-dialog>
   </div>
 </template>
 <script>
@@ -100,6 +105,7 @@ export default {
       skuPricePop: false,
       skuStockPop: false,
       show: false,
+      finishedLoading: false,
       keyboardShow: false,
       keyboardType: "",
       selectedIndex: 99,
@@ -250,6 +256,7 @@ export default {
       this.skuStockPop = false
     },
     confirm () {
+      this.finishedLoading = true
       this.$store.dispatch("SetSkulist", this.result).then(res => {
         console.log("SetSkulist")
         console.log(res)
@@ -260,6 +267,7 @@ export default {
           console.log(res)
           this.$router.push({ path: "/admin/addGoods" })
         })
+        this.finishedLoading = false
       }, 3000)
     }
   }
