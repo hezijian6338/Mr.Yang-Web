@@ -83,7 +83,6 @@
                 :show-confirm-button="false">
       <van-loading v-if="finishedLoading" />
     </van-dialog>
-
   </div>
 
 </template>

@@ -1,25 +1,30 @@
 <template>
   <div class="card">
-    <headerNav title="购物车"/>
-    <van-cell value="编辑商品" class="head">
+    <headerNav title="购物车" />
+    <van-cell value="编辑商品"
+              class="head">
       <template slot="title">
-        <van-checkbox v-model="checkedAll" @change="checked">全选</van-checkbox>
+        <van-checkbox v-model="checkedAll"
+                      @change="checked">全选</van-checkbox>
       </template>
     </van-cell>
 
-    <van-checkbox-group class="card-goods" v-model="checkedGoods">
+    <van-checkbox-group class="card-goods"
+                        v-model="checkedGoods">
       <div class="promotion-group">
-        <div v-for="(item,index) in goods" :key="index" class="card-goods__item">
-          <van-checkbox :name="item.id" v-model="checkedAll"></van-checkbox>
+        <div v-for="(item,index) in goods"
+             :key="index"
+             class="card-goods__item">
+          <van-checkbox :name="item.id"
+                        v-model="checkedAll"></van-checkbox>
 
-          <product-card :product="item" :iscard="true">
+          <product-card :product="item"
+                        :iscard="true">
             <template slot>
-              <van-cell
-                clickable
-                title="数量"
-                value="修改"
-                @click="changeGoodsQuantity(item.id, index, item.skuList_id)"
-              >
+              <van-cell clickable
+                        title="数量"
+                        value="修改"
+                        @click="changeGoodsQuantity(item.id, index, item.skuList_id)">
                 <!-- <template slot="title">
                   <van-tag type="danger">促销</van-tag>
                   <span class="van-cell-text">满60元减5元</span>
@@ -78,12 +83,10 @@
     </van-checkbox-group>
 
     <div style="height:50px;"></div>
-    <van-submit-bar
-      :price="totalPrice"
-      :disabled="!checkedGoods.length"
-      :button-text="submitBarText"
-      @submit="onSubmit"
-    >
+    <van-submit-bar :price="totalPrice"
+                    :disabled="!checkedGoods.length"
+                    :button-text="submitBarText"
+                    @submit="onSubmit">
       <template slot>
         <van-checkbox v-model="checkedAll">全选</van-checkbox>
       </template>
@@ -94,10 +97,11 @@
 <script>
 import { GetCarts, GetCart, UpdateCart } from "../../api/cart.js";
 import Vue from 'vue';
+import { mapGetters } from 'vuex'
 
 export default {
   components: {},
-  data() {
+  data () {
     return {
       checkedAll: false,
       checkedGoods: [],
@@ -147,11 +151,12 @@ export default {
     };
   },
   computed: {
-    submitBarText() {
+    ...mapGetters(['id']),
+    submitBarText () {
       const count = this.checkedGoods.length;
       return "结算" + (count ? `(${count})` : "");
     },
-    totalPrice() {
+    totalPrice () {
       return this.goods.reduce(
         (total, item) =>
           total +
@@ -159,11 +164,11 @@ export default {
             ? parseFloat(item.price)
             : 0),
         0
-      );
+      )
     }
   },
-  created: function() {
-    GetCarts(1).then(response => {
+  created: function () {
+    GetCarts(this.id).then(response => {
       // this.data=response.data;
       this.goods = response.data;
       // this.goods.title = response.data.title;
@@ -177,10 +182,13 @@ export default {
     });
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
+      this.$store.dispatch('Buy', this.checkedGoods).then(res => {
+
+      })
       this.$router.push("/order");
     },
-    checked() {
+    checked () {
       console.log(this.checkedAll);
       if (this.checkedAll) {
         for (var i = 0; i < this.goods.length; i++) {
@@ -192,17 +200,17 @@ export default {
       }
       console.log(this.checkedGoods);
     },
-    changeGoodsQuantity(id, index, skuList_id) {
+    changeGoodsQuantity (id, index, skuList_id) {
       var updateMap = {
         quantity: this.goods[index].quantity
-      };
+      }
       UpdateCart(id, skuList_id, updateMap).then(response => {
         // this.$toast(response.resultCode);
         GetCart(id).then(response => {
           // this.goods[index] = response.data;
-          Vue.set(this.goods,index,response.data)
-        });
-      });
+          Vue.set(this.goods, index, response.data)
+        })
+      })
       // console.log(updateMap + "" + id);
       // console.log(updateMap);
     }

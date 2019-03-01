@@ -21,3 +21,10 @@ export function UpdateCart(id, skuList_id, updateMap) {
     data: updateMap
   })
 }
+
+export function BuyByCart(id) {
+  return request({
+    url: '/cart/delete/' + id,
+    method: 'get'
+  })
+}

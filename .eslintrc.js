@@ -24,6 +24,6 @@ module.exports = {
         "indent": ["error", 2], //缩进为 2 个空格
         "linebreak-style": 'off', //强制使用一致的换行符风格
         "quotes": ["error", "single"], //使用单引号
-        "semi": ["error", "always"] //结束添加分号
+        "semi": 0 //结束no添加分号
     }
 };

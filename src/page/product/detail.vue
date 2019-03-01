@@ -1,8 +1,10 @@
 <template>
   <div class="goods">
-    <headerNav title="商品详情"/>
-    <van-swipe class="goods-swipe" :autoplay="3000">
-      <van-swipe-item v-for="thumb in goods.thumb" :key="thumb">
+    <headerNav title="商品详情" />
+    <van-swipe class="goods-swipe"
+               :autoplay="3000">
+      <van-swipe-item v-for="thumb in goods.thumb"
+                      :key="thumb">
         <img :src="thumb">
       </van-swipe-item>
     </van-swipe>
@@ -15,14 +17,13 @@
         <div class="goods-subtit">{{goods.subtitle}}</div>
       </van-cell>
 
-      <van-cell @click="onClickShowTag" class="goods-tag">
+      <van-cell @click="onClickShowTag"
+                class="goods-tag">
         <template>
-          <div
-            v-for="(item, index) in goodsPromises"
-            :key="index"
-            slot="title"
-            style="font-size:10px;float:left;"
-          >
+          <div v-for="(item, index) in goodsPromises"
+               :key="index"
+               slot="title"
+               style="font-size:10px;float:left;">
             <!-- <img src="https://haitao.nos.netease.com/ba8a4c2fdaa54f82a45261293c116af61419663676663i46n3jlh10028.png"/>
             <span >挪威品牌</span>
             <img src="https://haitao.nosdn2.127.net/13bd59e6e29a4f06b278c586629e690d.png" />
@@ -37,7 +38,8 @@
             <span >前海保税仓</span>
             <van-icon name="passed" color="red" />
             <span >七天无理由退货（拆封后不支持）</span>-->
-            <van-icon :name="item.icon" :color="item.color"/>
+            <van-icon :name="item.icon"
+                      :color="item.color" />
             <span>{{ item.name }}</span>
           </div>
         </template>
@@ -45,26 +47,36 @@
     </van-cell-group>
 
     <van-cell-group class="goods-cell-group">
-      <van-cell is-link @click="showPromotion">
+      <van-cell is-link
+                @click="showPromotion">
         <template slot="title">
           <span style="margin-right: 10px;">领券</span>
-          <van-tag type="danger" mark style="margin-right: 5px;">满180减30</van-tag>
-          <van-tag type="danger" mark style="margin-right: 5px;">满300减100</van-tag>
+          <van-tag type="danger"
+                   mark
+                   style="margin-right: 5px;">满180减30</van-tag>
+          <van-tag type="danger"
+                   mark
+                   style="margin-right: 5px;">满300减100</van-tag>
         </template>
       </van-cell>
 
-      <van-cell is-link @click="showPromotion">
+      <van-cell is-link
+                @click="showPromotion">
         <template slot="title">
           <span style="margin-right: 10px;">促销</span>
-          <van-tag type="danger" style="margin-right: 5px;">多买优惠</van-tag>
-          <van-tag type="danger" style="margin-right: 5px;">满减</van-tag>
-          <van-tag type="danger" style="margin-right: 5px;">限购</van-tag>
+          <van-tag type="danger"
+                   style="margin-right: 5px;">多买优惠</van-tag>
+          <van-tag type="danger"
+                   style="margin-right: 5px;">满减</van-tag>
+          <van-tag type="danger"
+                   style="margin-right: 5px;">限购</van-tag>
         </template>
       </van-cell>
     </van-cell-group>
 
     <van-cell-group class="goods-cell-group">
-      <van-cell is-link @click="showSku">
+      <van-cell is-link
+                @click="showSku">
         <template slot="title">
           <span style="margin-right: 10px;">已选</span>
           <span>10件装</span>
@@ -77,25 +89,33 @@
       <div v-html="goods.info"></div>
     </div>
     <van-goods-action>
-      <van-goods-action-mini-btn icon="like-o" @click="sorry">收藏</van-goods-action-mini-btn>
-      <van-goods-action-mini-btn icon="cart" @click="onClickCart">购物车</van-goods-action-mini-btn>
+      <van-goods-action-mini-btn icon="like-o"
+                                 @click="sorry">收藏</van-goods-action-mini-btn>
+      <van-goods-action-mini-btn icon="cart"
+                                 @click="onClickCart">购物车</van-goods-action-mini-btn>
       <van-goods-action-big-btn @click="showSku">加入购物车</van-goods-action-big-btn>
-      <van-goods-action-big-btn primary @click="showSku">立即购买</van-goods-action-big-btn>
+      <van-goods-action-big-btn primary
+                                @click="showSku">立即购买</van-goods-action-big-btn>
     </van-goods-action>
-    <van-actionsheet v-model="show" title="促销" style="font-size:14px;">
-      <van-cell is-link @click="sorry">
+    <van-actionsheet v-model="show"
+                     title="促销"
+                     style="font-size:14px;">
+      <van-cell is-link
+                @click="sorry">
         <template slot="title">
           <van-tag type="danger">多买优惠</van-tag>
           <span>满2件，总价打9折</span>
         </template>
       </van-cell>
-      <van-cell is-link @click="sorry">
+      <van-cell is-link
+                @click="sorry">
         <template slot="title">
           <van-tag type="danger">满减</van-tag>
           <span>满100元减50元</span>
         </template>
       </van-cell>
-      <van-cell is-link @click="sorry">
+      <van-cell is-link
+                @click="sorry">
         <template slot="title">
           <van-tag type="danger">限购</van-tag>
           <span>购买不超过5件时享受单件价￥8.00，超出数量以结算价为准</span>
@@ -103,10 +123,15 @@
       </van-cell>
     </van-actionsheet>
 
-    <van-actionsheet v-model="showTag" title="服务说明" style="font-size:14px;">
-      <van-cell v-for="(item, index) in goodsPromises" :key="index">
+    <van-actionsheet v-model="showTag"
+                     title="服务说明"
+                     style="font-size:14px;">
+      <van-cell v-for="(item, index) in goodsPromises"
+                :key="index">
         <template slot="title">
-          <van-icon :name="item.icon" :color="item.color" style="margin-right: 10px;"/>
+          <van-icon :name="item.icon"
+                    :color="item.color"
+                    style="margin-right: 10px;" />
           <span>{{ item.name }}</span>
           <div style="margin-left: 24px;font-size:10px;color:#7d7d7d;">{{ item.info }}</div>
         </template>
@@ -147,34 +172,33 @@
                 </template>
       </van-cell>-->
     </van-actionsheet>
-    <van-sku
-      v-model="showBase"
-      :sku="sku"
-      :goods="goodsInfo"
-      :goods-id="goodsInfo.id"
-      :hide-stock="sku.hide_stock"
-      :quota="sku.quota"
-      :quota-used="sku.quota_used"
-      reset-stepper-on-hide
-      reset-selected-sku-on-hide
-      disable-stepper-input
-      :close-on-click-overlay="closeOnClickOverlay"
-      :message-config="messageConfig"
-      :custom-sku-validator="customSkuValidator"
-      @buy-clicked="onBuyClicked"
-      @add-cart="onAddCartClicked"
-    />
+    <van-sku v-model="showBase"
+             :sku="sku"
+             :goods="goodsInfo"
+             :goods-id="goodsInfo.id"
+             :hide-stock="sku.hide_stock"
+             :quota="sku.quota"
+             :quota-used="sku.quota_used"
+             reset-stepper-on-hide
+             reset-selected-sku-on-hide
+             disable-stepper-input
+             :close-on-click-overlay="closeOnClickOverlay"
+             :message-config="messageConfig"
+             :custom-sku-validator="customSkuValidator"
+             @buy-clicked="onBuyClicked"
+             @add-cart="onAddCartClicked" />
   </div>
 </template>
 
 <script>
 // import skuData from '../../data/sku';
 // import Goods from '../../data/goods';
-import { GetGoods, AddCart } from "../../api/product.js";
+import { GetGoods, AddCart } from "../../api/product.js"
+import { mapGetters } from 'vuex'
 
 export default {
   components: {},
-  data() {
+  data () {
     // this.skuData = skuData
     return {
       show: false,
@@ -248,7 +272,10 @@ export default {
       }
     };
   },
-  created: function() {
+  computed: {
+    ...mapGetters(['id'])
+  },
+  created: function () {
     // console.log(Goods)
     // this.goods = Goods.goods
     // this.goodsPromises = Goods.goodsPromises
@@ -264,33 +291,34 @@ export default {
     });
   },
   methods: {
-    formatPrice(data) {
+    formatPrice (data) {
       return "¥" + (data / 100).toFixed(2);
     },
-    onClickCart() {
+    onClickCart () {
       this.$router.push("/cart");
     },
-    sorry() {
+    sorry () {
       Toast("暂无后续逻辑~");
     },
-    showPromotion() {
+    showPromotion () {
       this.show = true;
     },
-    showSku() {
+    showSku () {
       this.showBase = true;
     },
-    onClickShowTag() {
+    onClickShowTag () {
       this.showTag = true;
     },
-    onBuyClicked(data) {
+    onBuyClicked (data) {
       this.$toast(JSON.stringify(data));
     },
-    onAddCartClicked(data) {
-      this.cart[0].product_id = data.goodsId;
-      this.cart[0].skuList_id = data.selectedSkuComb.id;
-      this.cart[0].quantity = data.selectedNum;
-      this.cart[0].user_id = "1";
-      this.cart[0].desc = this.goods.subtitle;
+    onAddCartClicked (data) {
+      this.cart[0].product_id = data.goodsId
+      this.cart[0].skuList_id = data.selectedSkuComb.id
+      this.cart[0].quantity = data.selectedNum
+      this.cart[0].user_id = this.id
+      this.cart[0].title = data.title
+      this.cart[0].desc = this.goods.subtitle
       console.log(JSON.stringify(this.cart[0]));
       // this.$toast(JSON.stringify(data));
       AddCart("1", this.cart).then(response => {
