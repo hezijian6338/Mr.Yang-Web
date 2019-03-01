@@ -9,40 +9,40 @@ import {
 
 const product = {
   state: {
-    product_id: '5c78c9386a002c20246b58ef',
-    goods_id: '5c78cae66a002c20246b58fe',
+    product_id: '',
+    goods_id: '',
     tree_s1: {
-      "id": "5c6fa1516a002c2300c63ab3",
-      "k": "口味",
+      "id": "",
+      "k": "",
       "v": [{
-          "id": "5c6fa1516a002c2300c63ab1",
-          "name": "麻辣",
-          "imgUrl": "https://photostation.dragonsking.cn/mongodb/img/774ad515-61db-487c-9503-183116e52e59_20190222151313.jpg"
+          "id": "",
+          "name": "",
+          "imgUrl": ""
         },
         {
-          "id": "5c6fa1516a002c2300c63ab2",
-          "name": "黑暗料理",
-          "imgUrl": "https://photostation.dragonsking.cn/mongodb/img/IMG_8223_20190222151344.jpg"
+          "id": "",
+          "name": "",
+          "imgUrl": ""
         }
       ],
       "k_s": "s1"
     },
     tree_s2: {
-      "id": "5c6fa1516a002c2300c63ab7",
-      "k": "盒装",
+      "id": "",
+      "k": "",
       "v": [{
-          "id": "5c6fa1516a002c2300c63ab4",
-          "name": "大",
+          "id": "",
+          "name": "",
           "imgUrl": ""
         },
         {
-          "id": "5c6fa1516a002c2300c63ab5",
-          "name": "中",
+          "id": "",
+          "name": "",
           "imgUrl": ""
         },
         {
-          "id": "5c6fa1516a002c2300c63ab6",
-          "name": "小",
+          "id": "",
+          "name": "",
           "imgUrl": ""
         }
       ],
@@ -52,18 +52,18 @@ const product = {
     sku: {
       "id": "1",
       "tree": [
-        "1",
-        "2"
+        "",
+        ""
       ],
       "list": [
-        "10",
-        "11",
-        "12",
-        "13"
+        "",
+        "",
+        "",
+        ""
       ],
-      "collection_id": "1",
-      "stock_num": 99.0,
-      "price": "59",
+      "collection_id": "",
+      "stock_num": 0,
+      "price": "",
       "none_sku": false,
       "hide_stock": false
     },
@@ -86,6 +86,13 @@ const product = {
     },
     SET_SKU: (state, sku) => {
       state.sku = sku
+    },
+    SET_NULL: (state) => {
+      state.product_id = ''
+      state.goods_id = ''
+      state.tree_s1 = ''
+      state.tree_s2 = ''
+      state.sku = ''
     }
   },
   actions: {
