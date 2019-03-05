@@ -1,4 +1,4 @@
-import request from "../config/request"
+import request from '../config/request'
 
 export function GetCarts(user_id) {
   return request({

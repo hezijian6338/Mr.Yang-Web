@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { Upload } from "../../api/upload.js";
+import { Upload } from '../../api/upload.js';
 import { mapGetters } from 'vuex'
 
 export default {
@@ -151,32 +151,32 @@ export default {
       finisedLoading: false,
       loading: false,
       active: 0,
-      step: "s1",
+      step: 's1',
       upload: true,
-      icon_name: "add-o",
-      icon_color: "",
+      icon_name: 'add-o',
+      icon_color: '',
       v: [],
       tree_v: {
-        imgUrl: "",
-        name: ""
+        imgUrl: '',
+        name: ''
       },
       tree_s1: {
-        k: "",
-        k_s: "s1",
+        k: '',
+        k_s: 's1',
         v: [
           {
-            imgUrl: "",
-            name: ""
+            imgUrl: '',
+            name: ''
           }
         ]
       },
       tree_s2: {
-        k: "",
-        k_s: "s2",
+        k: '',
+        k_s: 's2',
         v: [
           {
-            imgUrl: "",
-            name: ""
+            imgUrl: '',
+            name: ''
           }
         ]
       }
@@ -204,12 +204,12 @@ export default {
     onRead (file) {
       console.log(file)
       let params = new FormData(); //创建form对象
-      params.append("file", file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
+      params.append('file', file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
       // console.log(params.get("file"));
       this.$dialog
         .confirm({
-          title: "再次确认'图片-" + (this.photoIndex + 1) + "'的上传",
-          message: "是否上传此图片?"
+          title: '再次确认\'图片-' + (this.photoIndex + 1) + '\'的上传',
+          message: '是否上传此图片?'
         })
         .then(() => {
           this.loading = true
@@ -227,12 +227,12 @@ export default {
         });
     },
     control_Tree () {
-      if (this.icon_name == "add-o") {
+      if (this.icon_name == 'add-o') {
         if (this.active == 0 || this.active == 1) {
           if (this.tree_s1.k == '') {
             this.$toast({ message: '你要填东西呀,大哥!', duration: 300 })
           } else {
-            this.v.push({ imgUrl: "", name: "" })
+            this.v.push({ imgUrl: '', name: '' })
             this.active = 1
           }
         }
@@ -240,24 +240,24 @@ export default {
           if (this.tree_s2.k == '') {
             this.$toast({ message: '你要填东西呀,大哥!', duration: 300 });
           } else {
-            this.v.push({ imgUrl: "", name: "" })
+            this.v.push({ imgUrl: '', name: '' })
             this.active = 3
           }
         }
       }
-      if (this.icon_name == "passed") {
+      if (this.icon_name == 'passed') {
         this.$dialog
           .confirm({
-            title: "再次确认框",
-            message: "是否确认此页资料?"
+            title: '再次确认框',
+            message: '是否确认此页资料?'
           })
           .then(() => {
             // on confirm
-            if (this.step == "s1") {
+            if (this.step == 's1') {
               this.active = 2
               this.tree_s1.v = this.v
               this.v = []
-              this.step = "s2"
+              this.step = 's2'
               this.continue_add()
               console.log(this.tree_s1)
             } else {
@@ -274,32 +274,32 @@ export default {
       }
     },
     clearTree_name (index) {
-      this.v[index].name = ""
+      this.v[index].name = ''
     },
     clearTree_imgUrl (index) {
-      this.v[index].imgUrl = ""
+      this.v[index].imgUrl = ''
     },
     tree_v_name (index) {
-      return "规格详情-" + (index + 1)
+      return '规格详情-' + (index + 1)
     },
     tree_v_imgUrl (index) {
-      return "图片-" + (index + 1)
+      return '图片-' + (index + 1)
     },
     finish_add () {
-      this.icon_name = "passed"
-      this.icon_color = "green"
+      this.icon_name = 'passed'
+      this.icon_color = 'green'
     },
     continue_add () {
-      this.icon_name = "add-o"
-      this.icon_color = "red"
+      this.icon_name = 'add-o'
+      this.icon_color = 'red'
     },
     finish () {
       this.finisedLoading = true
       this.$store.dispatch('AddTree_S1', this.tree_s1).then(res => {
-        console.log("S1")
+        console.log('S1')
         console.log(res)
         this.$store.dispatch('AddTree_S2', this.tree_s2).then(res => {
-          console.log("S2")
+          console.log('S2')
           console.log(res)
           this.finisedLoading = false
           this.$router.push({ path: '/admin/addSkulist' })

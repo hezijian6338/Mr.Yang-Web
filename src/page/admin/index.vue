@@ -1,19 +1,24 @@
 <template>
   <div>
-    <van-uploader :after-read="onRead" accept="image/gif, image/jpeg">
-      <van-icon name="photograph"/>
-      <img ref="photograph" style="width: 200px">
+    <van-uploader :after-read="onRead"
+                  accept="image/gif, image/jpeg">
+      <van-icon name="photograph" />
+      <img ref="photograph"
+           style="width: 200px">
     </van-uploader>
-    <div v-for="(item, index) in this.images" :key="index" style="display: inline">
-      <img :src="item" style="width: 50px;">
+    <div v-for="(item, index) in this.images"
+         :key="index"
+         style="display: inline">
+      <img :src="item"
+           style="width: 50px;">
     </div>
   </div>
 </template>
 <script>
-import { Upload, UserImages } from "../../api/upload.js";
+import { Upload, UserImages } from '../../api/upload.js';
 
 export default {
-  data() {
+  data () {
     return {
       height: 300,
       show: false,
@@ -22,20 +27,20 @@ export default {
     };
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user.id
     }
   },
   methods: {
-    onRead(file) {
+    onRead (file) {
       console.log(file);
       let params = new FormData(); //创建form对象
-      params.append("file", file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
+      params.append('file', file.file); //通过append向form对象添加数据//第一个参数字符串可以填任意命名，第二个根据对象属性来找到file
       // console.log(params.get("file"));
       this.$dialog
         .confirm({
-          title: "再次确认框",
-          message: "是否上传此图片?"
+          title: '再次确认框',
+          message: '是否上传此图片?'
         })
         .then(() => {
           // on confirm
@@ -49,7 +54,7 @@ export default {
         });
     }
   },
-  created() {
+  created () {
     UserImages(this.user()).then(response => {
       this.images = response.data;
       console.log(response.data);

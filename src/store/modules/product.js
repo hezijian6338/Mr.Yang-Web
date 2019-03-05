@@ -16,15 +16,15 @@ const product = {
       'id': '',
       'k': '',
       'v': [{
-        'id': '',
-        'name': '',
-        'imgUrl': ''
-      },
-      {
-        'id': '',
-        'name': '',
-        'imgUrl': ''
-      }
+          'id': '',
+          'name': '',
+          'imgUrl': ''
+        },
+        {
+          'id': '',
+          'name': '',
+          'imgUrl': ''
+        }
       ],
       'k_s': 's1'
     },
@@ -32,20 +32,20 @@ const product = {
       'id': '',
       'k': '',
       'v': [{
-        'id': '',
-        'name': '',
-        'imgUrl': ''
-      },
-      {
-        'id': '',
-        'name': '',
-        'imgUrl': ''
-      },
-      {
-        'id': '',
-        'name': '',
-        'imgUrl': ''
-      }
+          'id': '',
+          'name': '',
+          'imgUrl': ''
+        },
+        {
+          'id': '',
+          'name': '',
+          'imgUrl': ''
+        },
+        {
+          'id': '',
+          'name': '',
+          'imgUrl': ''
+        }
       ],
       'k_s': 's2'
     },

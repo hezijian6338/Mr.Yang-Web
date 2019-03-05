@@ -107,38 +107,38 @@ export default {
       show: false,
       finishedLoading: false,
       keyboardShow: false,
-      keyboardType: "",
+      keyboardType: '',
       selectedIndex: 99,
       actions: [
         {
-          name: "详细规格填写"
+          name: '详细规格填写'
         }
       ],
       list: [],
       tree: {
         price: 0,
-        s1: "",
+        s1: '',
         // "s1_name": '',
-        s2: "",
+        s2: '',
         // "s2_name": '',
-        s3: "",
+        s3: '',
         stock_num: 0
       },
       result: [],
       treeV: {
-        id: "",
-        name: "",
-        imgUrl: ""
+        id: '',
+        name: '',
+        imgUrl: ''
       },
       tree_s2: {},
       tree_s1: {},
       sku: {
-        id: "",
+        id: '',
         tree: [],
         list: [],
-        collection_id: "1",
+        collection_id: '1',
         stock_num: 0,
-        price: "",
+        price: '',
         none_sku: false,
         hide_stock: false
       }
@@ -156,12 +156,12 @@ export default {
         // this.tree.s2_name = this.tree_s2.v[j].name
         // console.log(this.tree.s2)
         this.list.push({
-          id: this.tree_s1.v[i].name + "--" + this.tree_s2.v[j].name,
+          id: this.tree_s1.v[i].name + '--' + this.tree_s2.v[j].name,
           s1: this.tree.s1,
           // "s1_name": this.tree.s1_name,
           s2: this.tree.s2,
           // "s2_name": this.tree.s2_name,
-          s3: "",
+          s3: '',
           price: 0,
           stock_num: 0
         });
@@ -199,40 +199,40 @@ export default {
       Toast(item.name);
     },
     onInput (value) {
-      if (this.keyboardType == "price") {
-        this.price = parseInt(this.price + "" + value);
+      if (this.keyboardType == 'price') {
+        this.price = parseInt(this.price + '' + value);
       }
-      if (this.keyboardType == "stock_num") {
-        this.stock_num = parseInt(this.stock_num + "" + value);
+      if (this.keyboardType == 'stock_num') {
+        this.stock_num = parseInt(this.stock_num + '' + value);
       }
-      if (this.keyboardType == "skuPrice") {
-        this.sku.price = this.sku.price + "" + value;
+      if (this.keyboardType == 'skuPrice') {
+        this.sku.price = this.sku.price + '' + value;
       }
-      if (this.keyboardType == "skuStock_num") {
-        this.sku.stock_num = parseInt(this.sku.stock_num + "" + value);
+      if (this.keyboardType == 'skuStock_num') {
+        this.sku.stock_num = parseInt(this.sku.stock_num + '' + value);
       }
     },
     onDelete () {
-      if (this.keyboardType == "price") {
+      if (this.keyboardType == 'price') {
         if (this.price != 0) {
-          this.price = this.price + "";
+          this.price = this.price + '';
           this.price = parseInt(this.price.substring(0, this.price.length - 1));
         }
       }
-      if (this.keyboardType == "stock_num") {
+      if (this.keyboardType == 'stock_num') {
         if (this.stock_num != 0) {
-          this.stock_num = this.stock_num + "";
+          this.stock_num = this.stock_num + '';
           this.stock_num = parseInt(
             this.stock_num.substring(0, this.stock_num.length - 1)
           )
         }
       }
-      if (this.keyboardType == "skuPrice") {
+      if (this.keyboardType == 'skuPrice') {
         this.sku.price = this.sku.price.substring(0, this.sku.price.length - 1)
       }
-      if (this.keyboardType == "skuStock_num") {
+      if (this.keyboardType == 'skuStock_num') {
         if (this.sku.stock_num != 0) {
-          this.sku.stock_num = this.sku.stock_num + ""
+          this.sku.stock_num = this.sku.stock_num + ''
           this.sku.stock_num = parseInt(
             this.sku.stock_num.substring(0, this.sku.stock_num.length - 1)
           )
@@ -257,15 +257,15 @@ export default {
     },
     confirm () {
       this.finishedLoading = true
-      this.$store.dispatch("SetSkulist", this.result).then(res => {
-        console.log("SetSkulist")
+      this.$store.dispatch('SetSkulist', this.result).then(res => {
+        console.log('SetSkulist')
         console.log(res)
       })
       setTimeout(() => {
-        this.$store.dispatch("SetSku", this.sku).then(res => {
-          console.log("SetSku")
+        this.$store.dispatch('SetSku', this.sku).then(res => {
+          console.log('SetSku')
           console.log(res)
-          this.$router.push({ path: "/admin/addGoods" })
+          this.$router.push({ path: '/admin/addGoods' })
         })
         this.finishedLoading = false
       }, 3000)

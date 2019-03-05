@@ -193,7 +193,7 @@
 <script>
 // import skuData from '../../data/sku';
 // import Goods from '../../data/goods';
-import { GetGoods, AddCart } from "../../api/product.js"
+import { GetGoods, AddCart } from '../../api/product.js'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -208,31 +208,31 @@ export default {
       goodsInfo: {},
       goods: {
         title:
-          "【每日一粒益智又长高】 Lifeline Care 儿童果冻鱼油DHA维生素D3聪明长高 软糖 30粒 2件装",
+          '【每日一粒益智又长高】 Lifeline Care 儿童果冻鱼油DHA维生素D3聪明长高 软糖 30粒 2件装',
         subtitle:
-          "【品牌直采】Q弹美味，无腥味果冻鱼油，每粒含足量鱼油DHA，帮助视网膜和大脑健康发育，让你的宝宝明眼又聪明，同时补充400国际单位维生素D3，强壮骨骼和牙齿。特含DPA，让宝宝免疫力更强，没病来扰。",
+          '【品牌直采】Q弹美味，无腥味果冻鱼油，每粒含足量鱼油DHA，帮助视网膜和大脑健康发育，让你的宝宝明眼又聪明，同时补充400国际单位维生素D3，强壮骨骼和牙齿。特含DPA，让宝宝免疫力更强，没病来扰。',
         price: 2680,
         market_price: 9999,
-        express: "免运费",
+        express: '免运费',
         remain: 19,
         thumb: [
-          "https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg",
-          "https://img.yzcdn.cn/public_files/2017/10/24/1791ba14088f9c2be8c610d0a6cc0f93.jpeg"
+          'https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg',
+          'https://img.yzcdn.cn/public_files/2017/10/24/1791ba14088f9c2be8c610d0a6cc0f93.jpeg'
         ],
         info:
           '<p style="text-align:center;"><img src="https://haitao.nosdn2.127.net/ac19460151ee4d95a6657202bcfc653c1531470912089jjjq8ml410763.jpg" ></p><p style="text-align:center;"><img src="https://haitao.nos.netease.com/2a91cfad22404e5498d347672b1440301531470912182jjjq8mnq10764.jpg" ></p><p style="text-align:center;"><img src="https://haitao.nos.netease.com/caddd5a213de4c1cb1347c267e8275731531470912412jjjq8mu410765.jpg" ></p>'
       },
       cart: [
         {
-          desc: "",
-          id: "",
-          imageURL: "",
-          price: "",
-          product_id: "",
+          desc: '',
+          id: '',
+          imageURL: '',
+          price: '',
+          product_id: '',
           quantity: 0,
-          skuList_id: "",
-          title: "",
-          user_id: ""
+          skuList_id: '',
+          title: '',
+          user_id: ''
         }
       ],
       showBase: false,
@@ -240,24 +240,24 @@ export default {
       showStepper: false,
       closeOnClickOverlay: true,
       initialSku: {
-        s1: "30349",
-        s2: "1193"
+        s1: '30349',
+        s2: '1193'
       },
       customSkuValidator: component => {
-        return "请选择xxx";
+        return '请选择xxx';
       },
       customStepperConfig: {
-        quotaText: "单次限购100件",
+        quotaText: '单次限购100件',
         stockFormatter: stock => `剩余${stock}间`,
         handleOverLimit: data => {
           const { action, limitType, quota } = data;
-          if (action === "minus") {
-            this.$toast("至少选择一件商品");
-          } else if (action === "plus") {
+          if (action === 'minus') {
+            this.$toast('至少选择一件商品');
+          } else if (action === 'plus') {
             if (limitType === LIMIT_TYPE.QUOTA_LIMIT) {
               this.$toast(`限购${quota}件`);
             } else {
-              this.$toast("库存不够了~~");
+              this.$toast('库存不够了~~');
             }
           }
         }
@@ -287,18 +287,18 @@ export default {
       this.goodsPromises = response.data.goodsPromises;
       this.goodsInfo = response.data.goodsInfo;
       console.log(response.data);
-      console.log("商品id: " + this.$route.params.id);
+      console.log('商品id: ' + this.$route.params.id);
     });
   },
   methods: {
     formatPrice (data) {
-      return "¥" + (data / 100).toFixed(2);
+      return '¥' + (data / 100).toFixed(2);
     },
     onClickCart () {
-      this.$router.push("/cart");
+      this.$router.push('/cart');
     },
     sorry () {
-      Toast("暂无后续逻辑~");
+      Toast('暂无后续逻辑~');
     },
     showPromotion () {
       this.show = true;
@@ -321,7 +321,7 @@ export default {
       this.cart[0].desc = this.goods.subtitle
       console.log(JSON.stringify(this.cart[0]));
       // this.$toast(JSON.stringify(data));
-      AddCart("1", this.cart).then(response => {
+      AddCart('1', this.cart).then(response => {
         this.$toast(JSON.stringify(response.data));
       });
     }

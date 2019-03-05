@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { GetCarts, GetCart, UpdateCart } from "../../api/cart.js";
+import { GetCarts, GetCart, UpdateCart } from '../../api/cart.js';
 import Vue from 'vue';
 import { mapGetters } from 'vuex'
 
@@ -107,45 +107,45 @@ export default {
       checkedGoods: [],
       goods: [
         {
-          id: "1",
+          id: '1',
           title:
-            "星巴克(Starbucks)星冰乐 轻盈香草味 咖啡饮料 281ml*6瓶礼盒装低脂减糖",
-          desc: "3.18kg/件",
-          price: "200.00",
+            '星巴克(Starbucks)星冰乐 轻盈香草味 咖啡饮料 281ml*6瓶礼盒装低脂减糖',
+          desc: '3.18kg/件',
+          price: '200.00',
           quantity: 1,
           imageURL:
-            "https://img.yzcdn.cn/public_files/2017/10/24/2f9a36046449dafb8608e99990b3c205.jpeg",
-          imageTag: "比加入时降5元"
+            'https://img.yzcdn.cn/public_files/2017/10/24/2f9a36046449dafb8608e99990b3c205.jpeg',
+          imageTag: '比加入时降5元'
         },
         {
-          id: "2",
-          title: "陕西蜜梨",
-          desc: "约600g",
-          price: "690.00",
+          id: '2',
+          title: '陕西蜜梨',
+          desc: '约600g',
+          price: '690.00',
           quantity: 1,
           imageURL:
-            "https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg",
+            'https://img.yzcdn.cn/public_files/2017/10/24/f6aabd6ac5521195e01e8e89ee9fc63f.jpeg',
           gift: [
             {
               title:
-                "星巴克（Starbucks）星冰乐小熊吊饰星巴克（Starbucks）星冰乐小熊吊饰",
+                '星巴克（Starbucks）星冰乐小熊吊饰星巴克（Starbucks）星冰乐小熊吊饰',
               quantity: 2
             },
             {
               title:
-                "星巴克（Starbucks）星冰乐小熊吊饰星巴克（Starbucks）星冰乐小熊吊饰",
+                '星巴克（Starbucks）星冰乐小熊吊饰星巴克（Starbucks）星冰乐小熊吊饰',
               quantity: 1
             }
           ]
         },
         {
-          id: "3",
-          title: "美国伽力果",
-          desc: "约680g/3个",
-          price: "3680.00",
+          id: '3',
+          title: '美国伽力果',
+          desc: '约680g/3个',
+          price: '3680.00',
           quantity: 1,
           imageURL:
-            "https://img.yzcdn.cn/public_files/2017/10/24/320454216bbe9e25c7651e1fa51b31fd.jpeg"
+            'https://img.yzcdn.cn/public_files/2017/10/24/320454216bbe9e25c7651e1fa51b31fd.jpeg'
         }
       ]
     };
@@ -154,7 +154,7 @@ export default {
     ...mapGetters(['id']),
     submitBarText () {
       const count = this.checkedGoods.length;
-      return "结算" + (count ? `(${count})` : "");
+      return '结算' + (count ? `(${count})` : '');
     },
     totalPrice () {
       return this.goods.reduce(
@@ -186,7 +186,7 @@ export default {
       this.$store.dispatch('Buy', this.checkedGoods).then(res => {
 
       })
-      this.$router.push("/order");
+      this.$router.push('/order');
     },
     checked () {
       console.log(this.checkedAll);

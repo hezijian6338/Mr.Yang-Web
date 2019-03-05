@@ -90,16 +90,16 @@
 </template>
 
 <script>
-import { Search } from "vant";
+import { Search } from 'vant';
 
 export default {
-  name: "userindex",
+  name: 'userindex',
   components: {
     [Search.name]: Search
   },
   data () {
     return {
-      value: "",
+      value: '',
       activeKey: 0,
       fullHeight: document.documentElement.clientHeight - 93,
       fullWidth: document.documentElement.clientWidth - 99
