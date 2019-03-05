@@ -133,7 +133,14 @@
                     :color="item.color"
                     style="margin-right: 10px;" />
           <span>{{ item.name }}</span>
-          <div style="margin-left: 24px;font-size:10px;color:#7d7d7d;">{{ item.info }}</div>
+          <!-- <div style="margin-left: 24px;font-size:10px;color:#7d7d7d;">{{ item.info }}</div> -->
+          <mavon-editor class="md"
+                        :value="item.info"
+                        :subfield="prop.subfield"
+                        :defaultOpen="prop.defaultOpen"
+                        :toolbarsFlag="prop.toolbarsFlag"
+                        :editable="prop.editable"
+                        :scrollStyle="prop.scrollStyle"></mavon-editor>
         </template>
       </van-cell>
       <!-- <van-cell>
@@ -273,6 +280,16 @@ export default {
     };
   },
   computed: {
+    prop () {
+      let data = {
+        subfield: false, // 单双栏模式
+        defaultOpen: 'preview', //edit： 默认展示编辑区域 ， preview： 默认展示预览区域
+        editable: false,
+        toolbarsFlag: false,
+        scrollStyle: true
+      };
+      return data;
+    },
     ...mapGetters(['id'])
   },
   created: function () {
