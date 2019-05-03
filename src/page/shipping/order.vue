@@ -28,7 +28,6 @@
                  rows="1"
                  autosize />
     </van-cell-group>
-    {{ this.$route.params.price }}
     <!-- <div style="height:15px;"></div>
     <van-cell-group class="total">
       <van-cell title="优惠券"

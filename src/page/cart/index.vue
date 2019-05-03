@@ -187,7 +187,7 @@ export default {
       this.$store.dispatch('Buy', this.checkedGoods).then(res => {
 
       })
-      this.$router.push('/order/' + this.totalPrice);
+      this.$router.push('/order/' + this.totalPrice)
     },
     checked () {
       console.log(this.checkedAll);

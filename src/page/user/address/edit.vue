@@ -14,14 +14,14 @@
 
 <script>
 import areaList from '../../../data/area';
-import { GetAddressById,SaveAddress,DelAddress } from "../../../api/user.js";
+import { GetAddressById,SaveAddress,DelAddress } from '../../../api/user.js';
 
 import { AddressEdit } from 'vant';
 export default {
-    components:{
-        [AddressEdit.name]:AddressEdit,
-    },
-    data() {
+  components:{
+    [AddressEdit.name]:AddressEdit,
+  },
+  data() {
     return {
       areaList,
       showDelete:false,
@@ -31,8 +31,12 @@ export default {
 
   methods: {
     onSave(data) {
-      SaveAddress(data).then(response=>{
-        this.$toast('保存成功');
+      var address = {'id': data.id,
+        'name': data.name,
+        'tel': data.tel,
+        'address': data.addressDetail}
+      SaveAddress(1, address).then(response=>{
+        this.$toast('保存成功' + response.data);
         this.$router.go(-1);
       })
     },

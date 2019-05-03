@@ -59,8 +59,8 @@
                  placeholder="请输入(千分位,例:5000 = ¥50)"
                  required
                  clearable />
-      <van-popup v-model="skuPricePop"
-                 :close-on-click-overlay="false">{{sku.price}}</van-popup>
+      <!-- <van-popup v-model="skuPricePop"
+                 :close-on-click-overlay="false">{{sku.price}}</van-popup> -->
       <van-field v-model="sku.stock_num"
                  label="商品默认库存数量"
                  @touchstart.native.stop="keyboardSelected('skuStock_num')"

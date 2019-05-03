@@ -42,13 +42,11 @@ export function GetAddressById(id) {
   })
 }
 
-export function SaveAddress(data) {
+export function SaveAddress(id, address) {
   return request({
-    url: '/User/SaveAddress',
+    url: '/user/' + id + '/addresses',
     method: 'post',
-    params: {
-      data
-    }
+    data: address
   })
 }
 export function DelAddress(data) {
