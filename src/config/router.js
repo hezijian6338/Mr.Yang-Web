@@ -20,7 +20,7 @@ const routes = [{
     // meta: {
     //   title: '管理员'
     // }
-    redirect: '/admin/addProduct'
+    redirect: '/login'
   },
   {
     path: '/admin/addProduct',
@@ -200,7 +200,7 @@ const routes = [{
     }
   },
   {
-    path: '/order',
+    path: '/order/:price',
     component: () => import('../page/shipping/order'),
     meta: {
       title: '确认订单'

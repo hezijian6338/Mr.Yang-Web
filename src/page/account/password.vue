@@ -13,7 +13,9 @@
                 />
             </van-cell-group>
             <div style="margin: 10px;">
+                <router-link :to="'/admin/addProduct'">
                 <van-button size="large" type="primary" style="height: 45px;line-height:45px;">登录</van-button>
+                </router-link>
             </div>
           </div>
       </div>

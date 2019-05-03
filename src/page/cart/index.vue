@@ -147,13 +147,14 @@ export default {
           imageURL:
             'https://img.yzcdn.cn/public_files/2017/10/24/320454216bbe9e25c7651e1fa51b31fd.jpeg'
         }
-      ]
-    };
+      ],
+      price: 0
+    }
   },
   computed: {
     ...mapGetters(['id']),
     submitBarText () {
-      const count = this.checkedGoods.length;
+      var count = this.checkedGoods.length;
       return '结算' + (count ? `(${count})` : '');
     },
     totalPrice () {
@@ -186,7 +187,7 @@ export default {
       this.$store.dispatch('Buy', this.checkedGoods).then(res => {
 
       })
-      this.$router.push('/order');
+      this.$router.push('/order/' + this.totalPrice);
     },
     checked () {
       console.log(this.checkedAll);

@@ -67,8 +67,8 @@
                  placeholder="请输入规格的存货数量(整数)"
                  required
                  clearable />
-      <van-popup v-model="skuStockPop"
-                 :close-on-click-overlay="false">{{sku.stock_num}}</van-popup>
+      <!-- <van-popup v-model="skuStockPop"
+                 :close-on-click-overlay="false">{{sku.stock_num}}</van-popup> -->
       <van-cell-group>
         <van-cell title="是否隐藏规格选择">
           <van-switch v-model="sku.none_sku"

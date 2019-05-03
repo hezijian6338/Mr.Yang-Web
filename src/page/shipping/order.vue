@@ -28,7 +28,8 @@
                  rows="1"
                  autosize />
     </van-cell-group>
-    <div style="height:15px;"></div>
+    {{ this.$route.params.price }}
+    <!-- <div style="height:15px;"></div>
     <van-cell-group class="total">
       <van-cell title="优惠券"
                 is-link
@@ -46,10 +47,10 @@
       <van-cell title="实付金额"
                 value="4.99"
                 style="font-weight: 700;" />
-    </van-cell-group>
+    </van-cell-group> -->
 
     <div style="height:50px;"></div>
-    <van-submit-bar :price="3050"
+    <van-submit-bar :price="price"
                     button-text="提交订单"
                     label='实付金额：'
                     @submit="onSubmit" />
@@ -64,6 +65,7 @@ export default {
   data () {
     return {
       type: 'add1',
+      price: 0,
       productss: [
         {
           imageURL:
@@ -104,6 +106,9 @@ export default {
   },
   computed: {
     ...mapGetters(['products'])
+  },
+  created: function () {
+    this.price = parseInt(this.$route.params.price)
   },
   methods: {
     onSubmit () {

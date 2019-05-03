@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { GetUserIndex } from "../../api/user.js";
+import { GetUserIndex } from '../../api/user.js';
 
 export default {
   data(){
@@ -93,10 +93,10 @@ export default {
   components: {
   },
   created:function(){
-      GetUserIndex().then(response=>{
-          this.data=response.data;
-          // console.log(this.data)
-      });
+    GetUserIndex().then(response=>{
+      this.data=response.data;
+      // console.log(this.data)
+    });
   },
 };
 </script>
